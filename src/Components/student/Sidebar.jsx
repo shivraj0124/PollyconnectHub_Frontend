@@ -4,7 +4,7 @@ import { BiHome } from "react-icons/bi";
 import { IoSchoolOutline } from "react-icons/io5";
 import { BiUserCircle } from "react-icons/bi";
 import themeHook from "../Context";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { GoProjectSymlink } from "react-icons/go";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
@@ -19,7 +19,7 @@ function Sidebar({ data }) {
     loadingMain,
     setLoadingMain,
   } = themeHook();
-
+ const navigate = useNavigate();
   const handleItemClick = (e) => {
     const value = e.target.textContent.trim();
     setsidebarvalue(value);
@@ -120,7 +120,7 @@ function Sidebar({ data }) {
           <section className=" flex gap-2 justify-center items-center">
             <FaUserCircle className=" text-darkgreen" size={40}></FaUserCircle>
             <section>
-              <p className=" font-semibold text-lg">{userDetails?.username}</p>
+              <p className=" font-semibold text-lg cursor-pointer" onClick={()=>{navigate("/Profile")}}>{userDetails?.username}</p>
             </section>
           </section>
           <p className=" text-center text-xs text-gray-500">

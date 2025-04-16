@@ -56,7 +56,7 @@ function Profile() {
              <section>
                <FaRegCircleUser size={55} className=" text-green-700" />
              </section>
-             <h1 className=" font-semibold">{userDetails?.username}</h1>
+             <h1 className=" font-semibold">{data2?.userDetails?.username}</h1>
    
              <div className=" border w-full "></div>
             

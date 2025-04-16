@@ -28,7 +28,6 @@ import Profile2 from "./Components/student/Profile2";
 import OneProject from "./Components/student/OneProject";
 import New_login from "./Components/Login/New_login";
 import './App.css'
-import Chat from "./Components/Chat/Chat";
 function App() {
   return (
     <>
@@ -48,7 +47,7 @@ function App() {
                 <Route path="/collage/:id" element={<OneCollege />} />
                 <Route path="/project/:id" element={<OneProject />} />
                 <Route path="/StudentProjects" element={<StudentProjects />} />
-                <Route path="/Chat" element={<Chat />} />
+                {/* <Route path="/Chat" element={<Chat />} /> */}
               </Route>
               <Route path="/Admin" element={<AdminHome />}>
                 <Route path="/Admin/Dashboard" element={<Dashboard />}></Route>

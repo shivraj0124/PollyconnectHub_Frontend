@@ -16,7 +16,7 @@ function OneProject() {
       `${VITE_BACKEND_API}/api/project/getoneproject`,
       { project_id: id }
     );
-    console.log(res?.data?.data?.data[0].createdAt);
+    console.log(res?.data?.data?.data[0]);
     setProjectdata(res?.data?.data?.data[0]);
   };
 
@@ -53,15 +53,21 @@ function OneProject() {
         />
 
         {/* Project Title */}
-        <h1 className="text-2xl font-bold text-green-700 capitalize">
-          {projectdata?.title}
-        </h1>
+        <div className="flex justify-between">
+          <h1 className="text-2xl font-bold text-green-700 capitalize">
+            {projectdata?.title}
+          </h1>
+          <h1 className="text-md font-bold text-black capitalize">
+            <span>Created By: </span>
+            <a className="text-blue-500" href={userDetails?._id === projectdata?.created_By?._id ? '/profile' :`/profile/${projectdata?.created_By?._id}`}>{userDetails?._id === projectdata?.created_By?._id ? 'You':projectdata?.created_By?.username}</a>
+          </h1>
+        </div>
 
         {/* Type & Date */}
         <div className="flex flex-wrap gap-3 text-sm">
-          {projectdata.isActive == true ? (
+          {projectdata?.isActive == "true" ? (
             <div className="text-xs border w-28 bg-green-300  flex justify-center items-center rounded-full bg-opacity-25 px-2 py-1 text-green-600 text-center font-semibold">
-              <span className="text-green-600 ">Verified</span>
+              <span className="text-gree  n-600 ">Verified</span>
             </div>
           ) : (
             <div className="text-xs border bg-red-300 w-24 flex justify-center items-center rounded-full bg-opacity-25 px-2 py-1 text-green-600 text-center font-semibold">
@@ -73,8 +79,9 @@ function OneProject() {
           </div>
           <div className="px-3 py-1 rounded-full border text-white bg-green-700">
             <span className="font-semibold text-white">Posted At:</span>{" "}
-            {projectdata?.createdAt ? new Date(projectdata.createdAt).toISOString().split("T")[0] : "N/A"}
-
+            {projectdata?.createdAt
+              ? new Date(projectdata.createdAt).toISOString().split("T")[0]
+              : "N/A"}
           </div>
         </div>
 

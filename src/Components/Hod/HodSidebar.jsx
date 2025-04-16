@@ -66,7 +66,10 @@ function HodSidebar({ data }) {
             <p className=" font-semibold text-lg">{userDetails?.username}</p>
           </section>
         </section>
-        <button onClick={handleLogOut} className=" bg-buttongreen bg-opacity-30 w-full text-green-600 px-4 py-[5px] font-semibold rounded-full mt-5">
+        <span>
+            <p className="text-[10px] text-center">{userDetails?.email}</p>
+          </span>
+        <button onClick={handleLogOut} className=" bg-buttongreen bg-opacity-30 w-full text-green-600 px-4 py-[5px] font-semibold rounded-full">
           logout
         </button>
       </div>

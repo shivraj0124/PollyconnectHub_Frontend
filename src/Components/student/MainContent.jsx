@@ -4,8 +4,9 @@ import ProjectCard from "./ProjectCard";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ss from "./ss.jpg";
 import tt from "./tt.jpg";
-import rr from "./rr.jpg";
 import jj from "./jj.jpg";
+import banner4 from "../../assets/banner4.jpg";
+import banner5 from "../../assets/banner5.jpg";
 import { Carousel } from "react-responsive-carousel";
 import photo from "./not_found.png";
 import { BarLoader } from "react-spinners";
@@ -24,7 +25,7 @@ function MainContent() {
       } catch (error) {
         console.error("Error fetching project data:", error);
       }
-      setLoading(false)
+      setLoading(false);
     };
     fetchData();
   }, [search == ""]);
@@ -41,6 +42,29 @@ function MainContent() {
     }
   };
 
+  const bannerArr = [
+    {
+      img: ss,
+      alt: "Slide 1",
+    },
+    {
+      img: tt,
+      alt: "Slide 2",
+    },
+    {
+      img: jj,
+      alt: "Slide 4",
+    },
+    {
+      img: banner4,
+      alt: "Slide 7",
+    },
+    {
+      img: banner5,
+      alt: "Slide 7",
+    },
+  ];
+
   return (
     <div className="w-full h-[90vh] flex flex-col">
       <div className="flex flex-col p-4 gap-4 w-full  overflow-y-auto min-[900px]">
@@ -48,7 +72,7 @@ function MainContent() {
           Empowering Polytechnic Communities through Shared Knowledge: Building
           Bridges, Inspiring Innovation.
         </h1>
-        <section className="w-full">
+        <section className="w-full rounded-md bg-red-900 h-60">
           <Carousel
             axis="horizontal"
             showThumbs={false}
@@ -57,34 +81,16 @@ function MainContent() {
             infiniteLoop={true}
             swipeable={true}
           >
+          { bannerArr?.map((item, index)=>(
             <div>
               <img
-                className="bg-black rounded-md w-full h-[200px] object-cover"
-                src={ss}
-                alt="Slide 1"
+                className="bg-black rounded-md w-full h-[250px] object-cover"
+                src={item.img}
+                alt={item.alt}
               />
             </div>
-            <div>
-              <img
-                className="bg-black rounded-md w-full h-[200px] object-cover"
-                src={tt}
-                alt="Slide 2"
-              />
-            </div>
-            <div>
-              <img
-                className="bg-black rounded-md w-full h-[200px] object-cover"
-                src={rr}
-                alt="Slide 3"
-              />
-            </div>
-            <div>
-              <img
-                className="bg-black rounded-md w-full h-[200px] object-cover"
-                src={jj}
-                alt="Slide 4"
-              />
-            </div>
+            ))
+          }
           </Carousel>
         </section>
         <section>
@@ -110,7 +116,7 @@ function MainContent() {
                 <BarLoader color="green" />
               </div>
             )}
-            
+
             {projectData.length === 0 ? (
               <div className=" flex justify-center items-center">
                 <img src={photo} className=" w-36 h-36" />

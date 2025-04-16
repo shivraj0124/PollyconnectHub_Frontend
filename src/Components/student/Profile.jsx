@@ -185,7 +185,7 @@ function Profile() {
                     </div>
 
                     <div className="flex gap-2 ">
-                      {item?.isActive == true ? (
+                      {item?.isActive == "true" ? (
                         <div className="text-xs border  bg-green-300 w-max flex justify-center items-center rounded-full bg-opacity-25 px-2 py-1 text-green-600 text-center font-semibold">
                           <span className="text-green-600 ">Verified</span>
                         </div>

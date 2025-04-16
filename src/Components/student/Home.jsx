@@ -4,6 +4,7 @@ import Sidebar from './Sidebar'
 import themeHook from '../Context'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Smsidebar from './Smsidebar'
+import Chatbot from '../Chat/ChatBot'
 
 function Home() {
     const { sidebarvalue, userDetails } = themeHook
@@ -32,6 +33,9 @@ function Home() {
                 {/* <div className=' hidden min-[900px]:block'>
                     <Outlet />
                 </div> */}
+            </div>
+            <div className='fixed bottom-5 right-5 z-50'>
+                <Chatbot />
             </div>
         </div>
     )

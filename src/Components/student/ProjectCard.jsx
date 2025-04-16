@@ -20,7 +20,7 @@ function ProjectCard({ data }) {
     }, [])
 
     return (
-        <div className=' flex  bg-white flex-col  gap-4 rounded-lg w-full px-6 py-6 ' onClick={() => { navigate(`/project/${data._id}`) }}>
+        <div className=' flex  bg-white flex-col  gap-4 rounded-lg w-full px-6 py-6 ' onClick={() => { navigate(`/project/${data?._id}`) }}>
 
             <div className=' grid grid-cols-1 min-[580px]:grid-cols-[auto_1fr]  gap-6 justify-center cursor-pointer'>
                 <img src={"https://i0.wp.com/technologysalon.org/wp-content/uploads/2019/04/artificial-intelligence.jpg?resize=640%2C429"}

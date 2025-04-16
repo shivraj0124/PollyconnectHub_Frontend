@@ -311,9 +311,9 @@ function ProjectDetails() {
                   <TableCell>Title</TableCell>
                   <TableCell>Description</TableCell>
                   <TableCell>Multimedia</TableCell>
-                  <TableCell>Contributors</TableCell>
+                  <TableCell>Created By</TableCell>
                   <TableCell>Live Demo</TableCell>
-                  <TableCell>Like Count</TableCell>
+                  {/* <TableCell>Like Count</TableCell> */}
                   <TableCell>Status</TableCell>
                   <TableCell>Type</TableCell>
                   <TableCell>Action</TableCell>
@@ -362,7 +362,7 @@ function ProjectDetails() {
                           <h1
                             className="text-blue-500 cursor-pointer"
                             onClick={() => {
-                              setShowDes(item.description);
+                                (item?.description);
                               setCurrentRow(item);
                               setIsModelOpen1(true);
                             }}
@@ -371,14 +371,25 @@ function ProjectDetails() {
                           </h1>
                         </TableCell>
                         <TableCell>
-                          <a target="_blank" href={item.multimedia}>
+                          <a target="_blank" href={item?.multimedia}>
                             <img
                               className="w-[50px] h-[50px]"
-                              src={item.multimedia}
+                              src={item?.multimedia}
                             />{" "}
                           </a>
                         </TableCell>
-                        <TableCell> {item.contributers} </TableCell>
+                        <TableCell>
+                          {" "}
+                          <div>
+                           
+                              <a
+                                href={`/profile/${item?.created_By?._id}`}
+                                className="text-blue-600"
+                              >
+                                @{item?.created_By?.username}
+                              </a>
+                          </div>{" "}
+                        </TableCell>
                         <TableCell>
                           <Link
                             className="text-blue-400"
@@ -388,7 +399,7 @@ function ProjectDetails() {
                             {item.live_demo}
                           </Link>
                         </TableCell>
-                        <TableCell>{item.likecount}</TableCell>
+                        {/* <TableCell>{item.likecount}</TableCell> */}
                         <TableCell>
                           <div onClick={toggleStatus}>
                             {item?.isActive === "true" ? (
@@ -463,39 +474,60 @@ function ProjectDetails() {
                     </button>
                   </div>
                   <div className="p-4">
-                    <a href={currentRow.multimedia} target="_blank">
+                    <a href={currentRow?.multimedia} target="_blank">
                       <img
-                        src={currentRow.multimedia}
-                        className="rounded-md h-[200px]"
+                        src={currentRow?.multimedia}
+                        className="rounded-md  w-full"
                       />
                     </a>
                     <div className="flex flex-col mt-2">
                       <h1 className="font-bold">Title</h1>
-                      <div>{currentRow.title}</div>
+                      <div>{currentRow?.title}</div>
+                    </div>
+                    <div className="flex flex-col mt-2">
+                      <h1 className="font-bold">Created By: </h1>
+                      <div>
+                           
+                           <a
+                             href={`/profile/${currentRow?.created_By?._id}`}
+                             className="text-blue-600"
+                           >
+                             @{currentRow?.created_By?.username}
+                           </a>
+                       </div>{" "}
                     </div>
                     <div className="flex flex-col mt-2">
                       <h1 className="font-bold">Type</h1>
-                      <div>{currentRow.type}</div>
+                      <div>{currentRow?.type}</div>
                     </div>
                     <div className="flex flex-col mt-2">
                       <h1 className="font-bold">Description</h1>
-                      <div>{currentRow.description}</div>
+                      <div>{currentRow?.description}</div>
                     </div>
 
                     <div className="flex flex-col mt-2">
                       <h1 className="font-bold">Contributors</h1>
-                      <div> {currentRow.contributers}</div>
+                      {/* <div> {currentRow?.contributers}</div> */}
+                      {currentRow?.contributers?.map((item2, index) => (
+                              <a
+                                href={`/profile/${item2?._id}`}
+                                className="text-blue-600"
+                              >
+                                @{item2?.username}
+                              </a>
+                            ))}
                     </div>
+                   
                     <div className="flex flex-col mt-2">
                       <h1 className="font-bold">Live Demo</h1>
                       <div>
                         {" "}
                         <a
-                          href={currentRow.live_demo}
+                          href={currentRow?.live_demo}
                           target="_blank"
                           className="text-blue-500"
                         >
-                          {currentRow.live_demo}
+                          {currentRow?.live_demo}
                         </a>
                       </div>
                     </div>
