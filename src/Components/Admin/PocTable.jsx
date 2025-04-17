@@ -240,7 +240,7 @@ function PocTable() {
           <input
             type="text"
             placeholder="Search here"
-            className="h-max p-1 px-2 rounded-md focus:outline-none border-2 border-gray-200"
+            className="h-max p-1 px-2 rounded-md focus:outline-none border-2 border-gray-200 dark:bg-slate-800"
             onChange={(e) => handleSearch(e.target.value)}
           />
           <Button
@@ -268,28 +268,27 @@ function PocTable() {
           }}>
             <Table stickyHeader>
               <TableHead>
-                <TableRow>
-                  <TableCell>Sr. No</TableCell>
-                  <TableCell>Username</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Mobile No</TableCell>
-                  <TableCell>College Name</TableCell>
-                  <TableCell>Action</TableCell>
+                <TableRow className="dark:bg-slate-800">
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Sr. No</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Username</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Email</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Mobile No</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">College Name</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {loading && (
                   <TableRow>
-                    <TableCell colSpan={10} align="center">
+                    <TableCell className="dark:bg-slate-800 dark:text-white" colSpan={10} align="center">
                       <CircularProgress />{" "}
                     </TableCell>
                   </TableRow>
                 )}
                 {loading === false && !pocList?.length > 0 && (
                   <TableRow>
-                    <TableCell
+                    <TableCell className="capitalize dark:bg-slate-800 dark:text-white"
                       colSpan={9}
-                      className="capitalize"
                       align="center"
                     >
                       No Data available in table
@@ -301,14 +300,14 @@ function PocTable() {
                   pocList?.map((item, index) => {
                     return (
                       <TableRow key={index}>
-                        <TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           {page * rowsPerPage + (index + 1)}
                         </TableCell>
-                        <TableCell>{item?.username}</TableCell>
-                        <TableCell>{item?.email}</TableCell>
-                        <TableCell>{item?.mobileNo}</TableCell>
-                        <TableCell>{item?.College?.name}</TableCell>
-                        <TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">{item?.username}</TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">{item?.email}</TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">{item?.mobileNo}</TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">{item?.College?.name}</TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           <div className="flex flex-row gap-2">
                             <h2
                               className="text-blue-700 cursor-pointer"
@@ -341,6 +340,7 @@ function PocTable() {
             </Table>
           </TableContainer>
           <TablePagination
+          className="dark:bg-slate-800 dark:text-white"
             rowsPerPageOptions={[10, 25, 50, 100]}
             rowsPerPage={rowsPerPage}
             page={page}

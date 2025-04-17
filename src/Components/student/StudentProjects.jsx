@@ -132,236 +132,194 @@ function StudentProjects() {
     getAllProjects();
   }, [userDetails, search == ""]);
   return (
-    <div className="w-full flex h-[90vh]">
-      <div className=" flex flex-col p-2 w-full h-[90vh] overflow-y-auto">
-        <div className="flex flex-row w-[100%] items-center">
-          <form
-            onSubmit={handleSearch}
-            className=" p-4 flex justify-center w-[100%]"
-          >
-            <input
-              type="search"
-              className=" w-[80%] rounded-xl py-[6px] border px-4 focus:outline-none text-gray-500 "
-              placeholder="serach project"
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </form>
-          <div>
-            {" "}
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: "#327c1c",
-                height: "max-content",
-                width: "max-content",
-              }}
-              onClick={() => setIsModelOpen(true)}
-            >
-              Add Project
-            </Button>
-          </div>
-        </div>
-        <h1 className=" text-darkgreen font-semibold text-xl mx-2">
-          Projects Uploaded By Students
-        </h1>
-        <div className=" grid grid-cols-1 gap-4 p-2">
-          {projectList.length === 0 ? (
-            <div className=" flex justify-center items-center">
-              <img src={photo} className=" w-36 h-36" />
-              <h1 className=" font-semibold">Not found</h1>
-            </div>
-          ) : (
-            projectList?.map((item, index) => (
-              <ProjectCard2 key={index} data={item} />
-            ))
-          )}
-        </div>
+    <div className="w-full flex h-[90vh] dark:bg-slate-900 dark:text-slate-100">
+    <div className="flex flex-col p-2 w-full h-[90vh] overflow-y-auto">
+      <div className="flex flex-row w-full items-center">
+        <form onSubmit={handleSearch} className="p-4 flex justify-center w-full">
+          <input
+            type="search"
+            className="w-4/5 rounded-xl py-2 px-4 border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 focus:outline-none"
+            placeholder="Search project"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </form>
+        <button
+          
+          onClick={() => setIsModelOpen(true)}
+          className="w-40 bg-green-700 rounded-md py-2"
+        >
+          Add Project
+        </button>
       </div>
+      <h1 className="text-green-600 dark:text-green-400 font-semibold text-xl mx-2">
+        Projects Uploaded By Students
+      </h1>
+      <div className="grid grid-cols-1 gap-4 p-2">
+        {projectList.length === 0 ? (
+          <div className="flex justify-center items-center">
+            <img src={photo} className="w-36 h-36" />
+            <h1 className="font-semibold text-slate-600 dark:text-slate-300">Not found</h1>
+          </div>
+        ) : (
+          projectList?.map((item, index) => (
+            <ProjectCard2 key={index} data={item} />
+          ))
+        )}
+      </div>
+    </div>
 
-      {isModelOpen && (
-        <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-gray-600 bg-opacity-60 backdrop-filter backdrop-blur-lg">
-          <div className="relative w-[90%] md:w-[50%]">
-            {/*content*/}
-            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none overflow-y-auto h-[500px]">
-              {/*header*/}
-              <div className="flex items-center justify-between p-3 border-b border-solid border-slate-200 rounded-t bg-white sticky top-0 ">
-                <h3 className="text-xl font-semibold text-[#757575]">
-                  Add Project
-                </h3>
-                <button
-                  className="  p-1 ml-auto bg-transparent border-0 text-[#757575] float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                  onClick={() => {
-                    setIsModelOpen(false);
-                    setSuggestions([]);
-                    setSelectedUsers([]);
-                  }}
-                >
-                  <Close />
-                </button>
-              </div>
-              <form onSubmit={handleAddProject}>
-                <div className="p-4">
-                  <div className="flex flex-col">
-                    <label className="mt-5">Project Title</label>
-                    <input
-                      type="text"
-                      className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
-                      placeholder="Enter Project Title"
-                      onChange={(e) => setTitle(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label className="mt-5">Project Type</label>
-                    <select
-                      className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
-                      onChange={(event) => {
-                        setSelectedType(event.target.value);
-                      }}
-                    >
-                      <option value="">Select Project Type</option>
-                      {projectTypes &&
-                        projectTypes.map((item, index) => {
-                          return (
-                            <option
-                              key={index + 1}
-                              id={item.id}
-                              value={item.value}
-                            >
-                              {item.value}
-                            </option>
-                          );
-                        })}
-                    </select>
-                  </div>
-                  <div className="flex flex-col">
-                    <label className="mt-5">PRoject Description</label>
-                    <textarea
-                      className="border border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
-                      placeholder="Enter Project Description"
-                      onChange={(e) => setDescription(e.target.value)}
-                      required
-                    />
-                  </div>
+    {isModelOpen && (
+      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-slate-800 bg-opacity-60 backdrop-blur-md">
+        <div className="relative w-[90%] md:w-[50%]">
+          <div className="rounded-lg shadow-lg flex flex-col w-full bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 overflow-y-auto h-[500px]">
+            <div className="flex items-center justify-between p-3 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 sticky top-0">
+              <h3 className="text-xl font-semibold">Add Project</h3>
+              <button
+                className="p-1 ml-auto text-3xl text-slate-500 hover:text-slate-700 dark:hover:text-slate-200"
+                onClick={() => {
+                  setIsModelOpen(false);
+                  setSuggestions([]);
+                  setSelectedUsers([]);
+                }}
+              >
+                <Close />
+              </button>
+            </div>
 
-                  <div className="flex flex-col">
-                    <label className="mt-5">Multimedia</label>
-                    <input
-                      type="file"
-                      className="border border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
-                      placeholder="Drop Multimedia"
-                      onChange={handleImageUpload}
-                      required
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label className="mt-5">Project Contributors</label>
-                    {/* <input
-                      type="telephone"
-                      className="border border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
-                      placeholder="Ex. Mohan Rane, Satish Ratho"
-                      onChange={(e) => setContributors(e.target.value)}
-                      required
-                    /> */}
-                  </div>
-                  <div style={{ width: "300px" }}>
-                    <input
-                      type="text"
-                      value={searchText}
-                      onChange={handleSearchC}
-                      placeholder="Search username"
-                      style={{ width: "100%", padding: "8px" }}
-                      className="focus:outline-none border-b border-gray-300 rounded-md"
-                    />
-                    {suggestions.length > 0 && (
-                      <ul
-                        style={{
-                          border: "1px solid #ccc",
-                          padding: "0",
-                          listStyle: "none",
-                          maxHeight: "150px",
-                          overflowY: "auto",
-                        }}
-                      >
-                        {suggestions.map((user) => (
-                          <li
-                            key={user._id}
-                            onClick={() => handleSelectUser(user)}
-                            style={{
-                              padding: "5px",
-                              cursor: "pointer",
-                              borderBottom: "1px solid #eee",
-                            }}
-                          >
-                            {user.username}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+            <form onSubmit={handleAddProject}>
+              <div className="p-4">
+                <div className="flex flex-col mt-2">
+                  <label>Project Title</label>
+                  <input
+                    type="text"
+                    className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm rounded-md px-2 py-1 focus:outline-none placeholder:text-slate-400"
+                    placeholder="Enter Project Title"
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                  />
+                </div>
 
-                    <ul className="mt-5">
-                      {selectedUsers.map((user) => (
-                        <li key={user._id} className="px-3 p-1 border rounded-xl w-max bg-green-100 text-green-500 font-semibold">{user.username}</li>
+                <div className="flex flex-col mt-4">
+                  <label>Project Type</label>
+                  <select
+                    className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1 focus:outline-none"
+                    onChange={(event) => setSelectedType(event.target.value)}
+                  >
+                    <option value="">Select Project Type</option>
+                    {projectTypes.map((item, index) => (
+                      <option key={index} value={item.value}>
+                        {item.value}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex flex-col mt-4">
+                  <label>Project Description</label>
+                  <textarea
+                    className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1 focus:outline-none placeholder:text-slate-400"
+                    placeholder="Enter Project Description"
+                    onChange={(e) => setDescription(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="flex flex-col mt-4">
+                  <label>Multimedia</label>
+                  <input
+                    type="file"
+                    className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1 focus:outline-none"
+                    onChange={handleImageUpload}
+                    required
+                  />
+                </div>
+
+                <div className="flex flex-col mt-4">
+                  <label>Project Contributors</label>
+                  <input
+                    type="text"
+                    value={searchText}
+                    onChange={handleSearchC}
+                    placeholder="Search username"
+                    className="focus:outline-none border-b border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-2 py-1 rounded-md"
+                  />
+                  {suggestions.length > 0 && (
+                    <ul className="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 mt-2 max-h-[150px] overflow-y-auto rounded-md">
+                      {suggestions.map((user) => (
+                        <li
+                          key={user._id}
+                          onClick={() => handleSelectUser(user)}
+                          className="px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer"
+                        >
+                          {user.username}
+                        </li>
                       ))}
                     </ul>
-                  </div>
-                  <div className="flex flex-col">
-                    <label className="mt-5">Project Live Demo</label>
-                    <input
-                      type="telephone"
-                      className="border border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
-                      placeholder="Drop Live Project Link"
-                      onChange={(e) => setLiveDemo(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label className="mt-5">Project Code Link</label>
-                    <input
-                      type="telephone"
-                      className="border border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
-                      placeholder="Drop Code Link"
-                      onChange={(e) => setCodeLink(e.target.value)}
-                      required
-                    />
-                  </div>
-
-                  <div className="flex flex-col py-2 justify-between gap-3">
-                    <div className="flex gap-2 mt-10">
-                      <Button
-                        variant="contained"
-                        type="submit"
-                        style={{
-                          backgroundColor: "#16a34a",
-                          height: "max-content",
-                        }}
+                  )}
+                  <ul className="mt-2 flex flex-wrap gap-2">
+                    {selectedUsers.map((user) => (
+                      <li
+                        key={user._id}
+                        className="px-3 py-1 rounded-xl bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200 text-sm"
                       >
-                        Submit
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          setIsModelOpen(false);
-                          setSuggestions([]);
-                          setSelectedUsers([]);
-                        }}
-                        variant="contained"
-                        style={{
-                          backgroundColor: "#dcfce7",
-                          height: "max-content",
-                          color: "#16a34a",
-                        }}
-                      >
-                        Cancel
-                      </Button>
-                    </div>
-                  </div>
+                        {user.username}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </form>
-            </div>
+
+                <div className="flex flex-col mt-4">
+                  <label>Project Live Demo</label>
+                  <input
+                    type="url"
+                    className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1 focus:outline-none"
+                    placeholder="Live Project Link"
+                    onChange={(e) => setLiveDemo(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="flex flex-col mt-4">
+                  <label>Project Code Link</label>
+                  <input
+                    type="url"
+                    className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1 focus:outline-none"
+                    placeholder="Code Repository Link"
+                    onChange={(e) => setCodeLink(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="flex gap-2 mt-6">
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    style={{ backgroundColor: "#16a34a" }}
+                  >
+                    Submit
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setIsModelOpen(false);
+                      setSuggestions([]);
+                      setSelectedUsers([]);
+                    }}
+                    variant="contained"
+                    style={{
+                      backgroundColor: "#dcfce7",
+                      color: "#16a34a",
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-      )}
-    </div>
+      </div>
+    )}
+  </div>
   );
 }
 

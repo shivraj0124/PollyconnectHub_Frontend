@@ -82,57 +82,57 @@ function PocDashboard() {
   };
 
   return (
-    <div className="flex flex-col w-full h-[90vh] p-5">
+    <div className="flex flex-col w-full h-[90vh] p-5 dark:bg-slate-900">
       <div className="flex flex-row justify-between">
-        <h1 className="text-lg font-semibold">Dashboard</h1>
+        <h1 className="text-lg font-semibold text-green-600">Dashboard</h1>
       </div>
 
       <div className="grid grid-cols-4 gap-10 mt-5">
-        <div className="border bg-white flex flex-row justify-between items-center p-4 rounded-md">
+        <div className="border dark:border-none dark:bg-slate-800 dark:text-white bg-white flex flex-row justify-between items-center p-4 rounded-md">
           <div className="flex flex-col gap-2">
-            <h1 className="text-4xl font-bold text-darkgreen">
+            <h1 className="text-4xl font-bold text-green-500">
               <CountUp delay={2} end={data?.totalDepartments || 0} />
             </h1>
             <h1 className="text-xl font-bold">Departments</h1>
           </div>
-          <BsBuildings className="text-darkgreen" size={60} />
+          <BsBuildings className="text-green-500" size={60} />
         </div>
 
-        <div className="border bg-white flex flex-row justify-between items-center p-4 rounded-md">
+        <div className="border dark:border-none bg-white dark:bg-slate-800 dark:text-white flex flex-row justify-between items-center p-4 rounded-md">
           <div className="flex flex-col gap-2">
-            <h1 className="text-4xl font-bold text-darkgreen">
+            <h1 className="text-4xl font-bold text-green-500">
               <CountUp delay={2} end={data?.totalHod || 0} />
             </h1>
             <h1 className="text-xl font-bold">HODs</h1>
           </div>
-          <LiaUserEditSolid className="text-darkgreen" size={60} />
+          <LiaUserEditSolid className="text-green-500" size={60} />
         </div>
       </div>
 
       {/* Profile Card */}
-      <div className="grid gap-10 mt-10 w-max">
-        <div className="border bg-white flex flex-col justify-between items-center p-5 rounded-md">
+      <div className="grid gap-10 mt-10 w-max  ">
+        <div className="border dark:border-none bg-white dark:bg-slate-800 dark:text-white flex flex-col justify-between items-center p-5 rounded-md">
           <div className="w-[100%] flex justify-end cursor-pointer" onClick={() => setOpen(true)}>
-            <EditIcon />
+            {/* <EditIcon /> */}
           </div>
           <div>
-            <div className="font-semibold text-green-800 text-center">Profile</div>
+            <div className="font-semibold text-green-600 text-center">Profile</div>
             <hr className="border-1 p-1 w-[100%]" />
             <section className="flex gap-2 justify-center items-center">
-              <FaUserCircle className="text-darkgreen" size={40} />
+              <FaUserCircle className="text-green-500" size={40} />
             </section>
             <section>
               <h1 className="font-semibold text-2xl text-center">{data?.pocData[0]?.username}</h1>
               <h2 className="mt-3">
-                <span className="text-green-800 font-semibold">Mobile no: </span>
+                <span className="text-green-600 font-semibold">Mobile no: </span>
                 {data?.pocData[0]?.mobileNo}
               </h2>
               <h2>
-                <span className="text-green-800 font-semibold">Email: </span>
+                <span className="text-green-600 font-semibold">Email: </span>
                 {data?.pocData[0]?.email}
               </h2>
               <h2 className="font-semibold">
-                <span className="text-green-800 font-semibold">College: </span>
+                <span className="text-green-600 font-semibold">College: </span>
                 {data?.pocData[0]?.College?.name}
               </h2>
               

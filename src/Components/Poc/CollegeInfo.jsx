@@ -85,10 +85,10 @@ function CollegeInfo() {
     getCollege();
   }, [isModelOpen]);
   return (
-    <div className="flex flex-col w-full  h-[90vh] p-5">
+    <div className="flex flex-col w-full  h-[90vh] p-5 ">
       <div className="flex flex-row justify-between ">
         <div>
-          <h1 className="text-lg font-semibold mt-5">College Information</h1>
+          <h1 className="text-lg font-semibold mt-5 text-green-600">College Information</h1>
         </div>
         <button
           className="  p-1  bg-transparent border-0 text-blue-500  top-0  text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -99,7 +99,7 @@ function CollegeInfo() {
         </button>
       </div>
 
-      <div className="flex flex-col mt-5 shadow-md border  p-4 rounded-md bg-white mx-auto md:w-[65%]">
+      <div className="overflow-y-auto flex flex-col mt-5 shadow-md border  p-4 rounded-md bg-white mx-auto md:w-[65%] dark:bg-slate-800 dark:text-white">
         {loading && (
           <div className="text-center">
             <CircularProgress />

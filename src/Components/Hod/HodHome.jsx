@@ -13,13 +13,13 @@ function HodHome() {
         }
     }, [userDetails])
     return (
-        <div className='bg-[#f5f5f5] w-full max-h-screen'>
+        <div className='bg-[#f5f5f5] w-full max-h-screen dark:bg-slate-900'>
             <Navbar />
             <div className=' grid grid-col-1 min-[900px]:grid-cols-[15%_auto]'>
-                <div className=' bg-white hidden min-[900px]:block'>
+                <div className=' bg-white dark:bg-slate-950 hidden min-[900px]:block h-[92vh]'>
                     <HodSidebar />
                 </div>
-                <div >
+                <div className='h-[92vh]'>
                     <Outlet />
                 </div>
                 {/* <div className=' hidden min-[900px]:block'>

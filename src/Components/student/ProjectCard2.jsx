@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineLike, AiFillLike } from "react-icons/ai";
-import { MdComment } from "react-icons/md";
-import { FaRegBookmark, FaBookmark } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
 
 function ProjectCard2({ data }) {
   const navigate = useNavigate();
@@ -30,7 +27,7 @@ function ProjectCard2({ data }) {
 
   return (
     <div
-      className="flex flex-col bg-white gap-4 rounded-lg w-full px-6 py-6 cursor-pointer"
+      className="flex flex-col bg-white dark:bg-slate-800 dark:text-slate-100 gap-4 rounded-lg w-full px-6 py-6 cursor-pointer shadow-md hover:shadow-lg transition-shadow"
       onClick={() => navigate(`/project/${data?._id}`)}
     >
       <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-6">
@@ -40,32 +37,37 @@ function ProjectCard2({ data }) {
             "https://i0.wp.com/technologysalon.org/wp-content/uploads/2019/04/artificial-intelligence.jpg?resize=640%2C429"
           }
           alt="Project"
-          className="w-full sm:w-44 h-44 rounded-xl object-cover"
+          className="w-full sm:w-44 h-44 rounded-xl object-cover border border-slate-200 dark:border-slate-700"
         />
         <div className="flex flex-col gap-2">
-          <p className="font-semibold text-md">{data?.title}</p>
-          <p className="text-gray-500 text-xs">
-            <span className="font-semibold">Published By: </span>
+          <p className="font-semibold text-lg">{data?.title}</p>
+
+          <p className="text-slate-500 dark:text-slate-400 text-sm">
+            <span className="font-semibold text-slate-600 dark:text-slate-300">Published By: </span>
             {data?.created_By?.fullName || "Unknown"}
           </p>
-          <p className="text-gray-500 text-xs">
-            <span className="font-semibold">College Name: </span>
-            { data?.allocated_college?.name || "N/A"}
+
+          <p className="text-slate-500 dark:text-slate-400 text-sm">
+            <span className="font-semibold text-slate-600 dark:text-slate-300">College Name: </span>
+            {collegeName?.name || data?.allocated_college?.name || "N/A"}
           </p>
-          <p className="text-gray-500 text-xs">
-            <span className="font-semibold">Type: </span>
+
+          <p className="text-slate-500 dark:text-slate-400 text-sm">
+            <span className="font-semibold text-slate-600 dark:text-slate-300">Type: </span>
             {data?.type || "N/A"}
           </p>
-          <p className="text-gray-500 text-sm line-clamp-3">
-            <span className="font-semibold text-sm">Description: </span>
+
+          <p className="text-slate-500 dark:text-slate-400 text-sm line-clamp-3">
+            <span className="font-semibold text-slate-600 dark:text-slate-300">Description: </span>
             {data?.description || "No description provided."}
           </p>
-          <div className="flex flex-col sm:flex-row justify-between text-xs text-gray-500 mt-2 sm:items-end">
-            <span className="font-semibold">
+
+          <div className="flex flex-col sm:flex-row justify-between text-sm mt-2 sm:items-end">
+            <span className="font-semibold text-slate-600 dark:text-slate-300">
               Published on: {moment(data?.time).format("YYYY-MM-DD")}
             </span>
             <button
-              className="bg-[#57CC99] rounded-full bg-opacity-25 px-3 py-2 text-green-600 font-semibold cursor-pointer"
+              className="bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200 font-semibold px-4 py-2 rounded-full mt-2 sm:mt-0 hover:bg-green-200 dark:hover:bg-green-700 transition"
               onClick={(e) => {
                 e.stopPropagation();
                 navigate(`/project/${data?._id}`);

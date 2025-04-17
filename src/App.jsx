@@ -28,6 +28,7 @@ import Profile2 from "./Components/student/Profile2";
 import OneProject from "./Components/student/OneProject";
 import New_login from "./Components/Login/New_login";
 import './App.css'
+import MyHome from "./Components/MyHome"
 function App() {
   return (
     <>
@@ -37,10 +38,11 @@ function App() {
             <Routes>
               <Route path="/Login" element={<New_login />}></Route>
               <Route path="/SignUp" element={<SignUp />}></Route>
+              <Route path="/" element={<MyHome />}></Route>
               {/* <Route path="/image" element={<Image />}></Route> */}
               <Route path="/" element={<Home />}>
-                <Route index element={<MainContent />} />
-                <Route path="/home" element={<MainContent />} />
+                {/* <Route index element={<MainContent />} /> */}
+                <Route path="/visit" element={<MainContent />} />
                 <Route path="/college" element={<College />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/profile/:id" element={<Profile2 />} />

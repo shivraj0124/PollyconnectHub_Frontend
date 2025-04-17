@@ -17,63 +17,51 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [eye, setEye] = useState(false);
   const [collegeList, setCollegeList] = useState([]);
-  const navigate = useNavigate();
-  const validateFullName = (name) => /^[a-zA-Z\s]*$/.test(name);
-  const validateMobile = (number) => /^\d{10}$/.test(number);
-  const validatePassword = (pass) => pass.length >= 8;
   const [showdept, setshowdept] = useState(false);
   const [dept, setdepts] = useState([]);
   const [selecteddep, setselecteddep] = useState("");
+  const navigate = useNavigate();
   const VITE_BACKEND_API = import.meta.env.VITE_BACKEND_API;
+
+  const validateFullName = (name) => /^[a-zA-Z\s]*$/.test(name);
+  const validateMobile = (number) => /^\d{10}$/.test(number);
+  const validatePassword = (pass) => pass.length >= 8;
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log("selectedCollege", selectedCollege);
-    if (!validateFullName(fullName)) {
-      toast.error("Please enter a valid full name");
-      return;
-    }
-    if (!validateMobile(mobile)) {
-      toast.error("Please enter a valid mobile number");
-      return;
-    }
-    if (!validatePassword(password)) {
-      toast.error("Password must be at least 8 characters long");
-      return;
-    }
+    if (!validateFullName(fullName)) return toast.error("Enter a valid full name");
+    if (!validateMobile(mobile)) return toast.error("Enter a valid mobile number");
+    if (!validatePassword(password)) return toast.error("Password must be at least 8 characters");
+
     try {
       const result = await axios.post(`${VITE_BACKEND_API}/api/auth/signup`, {
         username: userName,
-        password: password,
-        fullName: fullName,
-        email: email,
+        password,
+        fullName,
+        email,
         userType: "student",
         mobileNo: mobile,
         allocated_college: selectedCollege,
         allocated_department: selecteddep,
       });
-      console.log(result);
+
       if (result.data.data.status === 200) {
         toast.success(result.data.data.msg);
         navigate("/Login");
       } else {
         toast(result.data.data.msg, {
-          iconTheme: {
-            primary: "#facc15",
-            secondary: "#fff",
-          },
           icon: "⚠",
+          iconTheme: { primary: "#facc15", secondary: "#fff" },
         });
       }
     } catch (err) {
       toast.error(err.message);
     }
   };
+
   const getAllColleges = async () => {
     try {
-      const result = await axios.get(
-        `${VITE_BACKEND_API}/api/college/getAllColleges`
-      );
-      console.log(result.data.data);
+      const result = await axios.get(`${VITE_BACKEND_API}/api/college/getAllColleges`);
       setCollegeList(result.data.data.data);
     } catch (err) {
       toast.error(err.message);
@@ -81,15 +69,10 @@ function SignUp() {
   };
 
   const getdept = async (id) => {
-    console.log(id, "helo");
     try {
-      const result = await axios.post(
-        `${VITE_BACKEND_API}/api/auth/getDepartment`,
-        {
-          college_id: id,
-        }
-      );
-      console.log(result);
+      const result = await axios.post(`${VITE_BACKEND_API}/api/auth/getDepartment`, {
+        college_id: id,
+      });
       setdepts(result.data.data.data);
     } catch (err) {
       toast.error(err.message);
@@ -101,33 +84,34 @@ function SignUp() {
   }, [findForm]);
 
   return (
-    <div className="  h-screen flex justify-center items-center bg-blue-50 overflow-y-auto">
-      <div className="flex flex-row fixed  bg-[#fcfcfe] shadow-xl rounded-md  max-md:w-[90%] justify-center items-center w-max h-max py-4 px-5">
+    <div className="h-screen flex justify-center items-center bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-100 transition-colors duration-300 overflow-y-auto">
+      <div className="flex flex-row fixed bg-white dark:bg-slate-800 shadow-xl rounded-md max-md:w-[90%] justify-center items-center w-max h-max py-4 px-5">
         <div className="max-md:hidden w-[40%]">
-          <img className="h-max w-[500px] " src={signUpImage} />
+          <img className="h-max w-[500px]" src={signUpImage} />
         </div>
-        <div className="flex flex-col px-4 w-[100%] sm:w-[60%] my-auto overflow-y-auto h-[85vh]">
-          <h1 className="font-semibold text-black text-xl underline underline-offset-4 text-center">
+
+        <div className="flex flex-col px-4 w-full sm:w-[60%] my-auto overflow-y-auto h-[85vh]">
+          <h1 className="font-semibold text-xl underline underline-offset-4 text-center">
             Student Registration
           </h1>
-          <form className="flex flex-col w-[full] py-3" onSubmit={handleOnSubmit}>
+          <form className="flex flex-col w-full py-3" onSubmit={handleOnSubmit}>
             <div className="flex flex-col gap-4">
-              <div className=" flex items-center justify-center gap-2">
+              <div className="flex items-center justify-center gap-2">
                 <div className="flex flex-col w-[50%]">
                   <label className="mt-2">Full Name</label>
                   <input
                     type="text"
-                    className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                    className="border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm"
                     placeholder="Enter Your Full Name"
                     onChange={(e) => setFullName(e.target.value)}
                     required
                   />
                 </div>
-                <div className="flex flex-col w-[50%] ">
-                  <label className=" mt-2">Mobile No.</label>
+                <div className="flex flex-col w-[50%]">
+                  <label className="mt-2">Mobile No.</label>
                   <input
-                    type="telephone"
-                    className="border border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                    type="tel"
+                    className="border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm"
                     placeholder="Enter Your Mobile No."
                     onChange={(e) => setMobile(e.target.value)}
                     required
@@ -135,122 +119,105 @@ function SignUp() {
                 </div>
               </div>
             </div>
-            <div>
+
+            <div className="flex flex-col">
+              <label className="mt-2">Email</label>
+              <input
+                type="email"
+                className="border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm"
+                placeholder="Enter Your Email"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <label className="mt-2">College Name</label>
+              <select
+                className="border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm"
+                value={selectedCollege}
+                onChange={(e) => {
+                  setSelectedCollege(e.target.value);
+                  setshowdept(true);
+                  getdept(e.target.value);
+                }}
+              >
+                <option value="">Select Your College</option>
+                {collegeList.map((item, idx) => (
+                  <option key={idx + 1} value={item._id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {showdept && (
               <div className="flex flex-col">
-                <label className="mt-2">Email</label>
-                <input
-                  type="email"
-                  className="border border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
-                  placeholder="Enter Your Email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="mt-2">College Name</label>
+                <label className="mt-2">Select Department</label>
                 <select
-                  className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
-                  value={selectedCollege}
-                  onChange={(event) => {
-                    setSelectedCollege(event.target.value);
-                    setshowdept(true);
-                    getdept(event.target.value);
-                  }}
+                  className="border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm"
+                  value={selecteddep}
+                  onChange={(e) => setselecteddep(e.target.value)}
                 >
-                  <option value="">Select Your College</option>
-                  {collegeList &&
-                    collegeList.map((item, index) => {
-                      return (
-                        <option key={index + 1} id={item._id} value={item._id}>
-                          {item.name}
-                        </option>
-                      );
-                    })}
+                  <option value="">Select Your Department</option>
+                  {dept.map((item, idx) => (
+                    <option key={idx + 1} value={item._id}>
+                      {item.name}
+                    </option>
+                  ))}
                 </select>
               </div>
-              {showdept && (
-                <div className="flex flex-col">
-                  <label className="mt-2">Select Department</label>
-                  <select
-                    className="border-2 border-gray-300 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
-                    value={selecteddep}
-                    onChange={(event) => {
-                      setselecteddep(event.target.value);
-                    }}
-                  >
-                    <option value="">Select Your Department</option>
-                    {dept &&
-                      dept.map((item, index) => {
-                        return (
-                          <option
-                            key={index + 1}
-                            id={item._id}
-                            value={item._id}
-                          >
-                            {item.name}
-                          </option>
-                        );
-                      })}
-                  </select>
-                </div>
-              )}
+            )}
+
+            <div className="flex flex-col">
+              <label className="mt-2">Username</label>
+              <input
+                type="text"
+                className="border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm"
+                placeholder="Enter Your Username"
+                onChange={(e) => setUserName(e.target.value)}
+                required
+              />
             </div>
-            <div className="mb-3">
-              <div className="flex flex-col">
-                <label className="mt-2">Username</label>
-                <input
-                  type="text"
-                  className="border border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
-                  placeholder="Enter Your Username"
-                  onChange={(e) => setUserName(e.target.value)}
-                  required
-                />
+
+            <div className="flex flex-col relative">
+              <label className="mt-2">Password</label>
+              <input
+                type="password"
+                className="border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm"
+                placeholder="Enter Your Password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              {/* Optional: Password toggle (uncomment if needed)
+              <div className="absolute top-7 right-3">
+                {eye ? (
+                  <FaEyeSlash size={20} onClick={() => setEye(false)} />
+                ) : (
+                  <FaEye size={20} onClick={() => setEye(true)} />
+                )}
               </div>
-              <div className="flex flex-col relative">
-                <label className="mt-2">Password</label>
-                <input
-                  type={"password"}
-                  className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
-                  placeholder="Enter Your Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-                {/* <div className="absolute top-7 right-0 mt-6 mr-4">
-                  {!eye ? (
-                    <FaEye size={20} onClick={() => setEye(true)} />
-                  ) : (
-                    <FaEyeSlash size={20} onClick={() => setEye(false)} />
-                  )}
-                </div> */}
-              </div>
+              */}
             </div>
-            {/* <button
-              type="submit"
-              className="mt-10 px-5 py-2 bg-blue-500 text-white hover:bg-blue-700 text-xl rounded-md"
-            >
-              Submit
-            </button> */}
+
             <Button
               variant="contained"
               type="submit"
-              style={{
-                backgroundColor: "#22c55e",
-              }}
+              style={{ backgroundColor: "#22c55e", marginTop: "16px" }}
             >
               Submit
             </Button>
-            <div>
-              <h2 className="text-center mt-5">
-                Already have an account ?{" "}
-                <Link
-                  className="cursor-pointer text-blue-500"
-                  onClick={() => setFindForm("Student")}
-                  to="/Login "
-                >
-                  login
-                </Link>
-              </h2>
-            </div>
+
+            <h2 className="text-center mt-5">
+              Already have an account?{" "}
+              <Link
+                className="text-blue-500 hover:underline"
+                onClick={() => setFindForm("Student")}
+                to="/Login"
+              >
+                Login
+              </Link>
+            </h2>
           </form>
         </div>
       </div>

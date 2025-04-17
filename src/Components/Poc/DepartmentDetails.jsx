@@ -216,13 +216,13 @@ function DepartmentDetails() {
     <div className="flex flex-col w-full  h-[90vh] p-5">
       <div className="flex flex-row justify-between w-[100%]">
         <div>
-          <h1 className="text-lg font-semibold ">Departments List</h1>
+          <h1 className="text-lg font-semibold text-green-600">Departments List</h1>
         </div>
         <div className="flex flex-row gap-2 items-center">
           <input
             type="text"
             placeholder="Search here"
-            className="h-max p-1 px-2 rounded-md focus:outline-none border-2 border-gray-200"
+            className="h-max dark:bg-slate-800 dark:text-white p-1 px-2 rounded-md focus:outline-none border-2 border-gray-200"
             onChange={(e) => handleSearch(e.target.value)}
           />
           <Button
@@ -253,16 +253,16 @@ function DepartmentDetails() {
             <Table stickyHeader>
               <TableHead>
                 <TableRow>
-                  <TableCell>Sr. No</TableCell>
-                  <TableCell>Name</TableCell>
-                  <TableCell>About</TableCell>
-                  <TableCell>Action</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Sr. No</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Name</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">About</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {loading && (
                   <TableRow>
-                    <TableCell colSpan={10} align="center">
+                    <TableCell colSpan={10} align="center" className="dark:bg-slate-800 dark:text-white">
                       <CircularProgress />{" "}
                     </TableCell>
                   </TableRow>
@@ -271,8 +271,9 @@ function DepartmentDetails() {
                   <TableRow>
                     <TableCell
                       colSpan={9}
-                      className="capitalize"
+                      className="capitalize dark:bg-slate-800 dark:text-white"
                       align="center"
+                      
                     >
                       No Data available in table
                     </TableCell>
@@ -283,13 +284,13 @@ function DepartmentDetails() {
                   departmentList?.map((item, index) => {
                     return (
                       <TableRow key={index}>
-                        <TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           {page * rowsPerPage + (index + 1)}
-                        </TableCell>
-                        <TableCell>{item.name}</TableCell>
-                        <TableCell>{item.about}</TableCell>
+                        </TableCell  >
+                        <TableCell  className="dark:bg-slate-800 dark:text-white">{item.name}</TableCell>
+                        <TableCell  className="dark:bg-slate-800 dark:text-white">{item.about}</TableCell>
                         {/* <TableCell>{item.college.name}</TableCell> */}
-                        <TableCell>
+                        <TableCell  className="dark:bg-slate-800 dark:text-white">
                           <div className="flex flex-row gap-2">
                             <h2
                               className="text-blue-700 cursor-pointer"
@@ -320,6 +321,7 @@ function DepartmentDetails() {
             </Table>
           </TableContainer>
           <TablePagination
+          className="dark:bg-slate-800 dark:text-white"
             rowsPerPageOptions={[10, 25, 50, 100]}
             rowsPerPage={rowsPerPage}
             page={page}

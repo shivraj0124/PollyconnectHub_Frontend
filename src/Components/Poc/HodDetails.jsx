@@ -226,7 +226,7 @@ function HodDetails() {
     <div className="flex flex-col w-full  h-[90vh] p-5">
       <div className="flex flex-row justify-between w-[100%]">
         <div>
-          <h1 className="text-lg font-semibold ">Hod List</h1>
+          <h1 className="text-lg font-semibold text-green-600">Hod List</h1>
         </div>
         <div className="flex flex-row gap-2 items-center">
           <input
@@ -264,18 +264,18 @@ function HodDetails() {
             <Table stickyHeader>
               <TableHead>
                 <TableRow>
-                  <TableCell>Sr. No</TableCell>
-                  <TableCell>Username</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Mobile No</TableCell>
-                  <TableCell>Department Name</TableCell>
-                  <TableCell>Action</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Sr. No</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Username</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Email</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Mobile No</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Department Name</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {loading && (
                   <TableRow>
-                    <TableCell colSpan={10} align="center">
+                    <TableCell colSpan={10} align="center" className="dark:bg-slate-800 dark:text-white">
                       <CircularProgress />{" "}
                     </TableCell>
                   </TableRow>
@@ -284,7 +284,7 @@ function HodDetails() {
                   <TableRow>
                     <TableCell
                       colSpan={9}
-                      className="capitalize"
+                      className="dark:bg-slate-800 dark:text-white capitalize"
                       align="center"
                     >
                       No Data available in table
@@ -296,14 +296,14 @@ function HodDetails() {
                   hodList?.map((item, index) => {
                     return (
                       <TableRow key={index}>
-                        <TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           {page * rowsPerPage + (index + 1)}
                         </TableCell>
-                        <TableCell>{item.username}</TableCell>
-                        <TableCell>{item.email}</TableCell>
-                        <TableCell>{item.mobileNo}</TableCell>
-                        <TableCell>{item.allocated_department?.name}</TableCell>
-                        <TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">{item.username}</TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">{item.email}</TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">{item.mobileNo}</TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">{item.allocated_department?.name}</TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           <div className="flex flex-row gap-2">
                             <h2
                               className="text-blue-700 cursor-pointer"
@@ -334,6 +334,7 @@ function HodDetails() {
             </Table>
           </TableContainer>
           <TablePagination
+          className="dark:bg-slate-800 dark:text-white"
             rowsPerPageOptions={[10, 25, 50, 100]}
             rowsPerPage={rowsPerPage}
             page={page}

@@ -187,7 +187,7 @@ function CollegesTable() {
     getAllColleges();
   }, [page, pagesize, pageNumber, isModelOpen, isModelOpen2, isModelOpen3]);
   return (
-    <div className="flex flex-col w-full  h-[90vh] p-5">
+    <div className="flex flex-col w-full  h-[90vh] ">
       <div className="flex flex-row justify-between ">
         <div>
           <h1 className="text-lg font-semibold ">College List</h1>
@@ -196,7 +196,7 @@ function CollegesTable() {
           <input
             type="text"
             placeholder="Search here"
-            className="h-max p-1 px-2 rounded-md focus:outline-none border-2 border-gray-200"
+            className="h-max p-1 px-2 rounded-md focus:outline-none border-2 border-gray-200 dark:bg-slate-800 dark:text-white"
             onChange={(e) => handleSearch(e.target.value)}
           />
           <Button
@@ -211,25 +211,25 @@ function CollegesTable() {
           </Button>
         </div>
       </div>
-      <div className=" mt-5 rounded">
-        <Paper sx={{ width: "100%" }}>
+      <div className=" mt-5 rounded dark:bg-slate-800 dark:text-white">
+        <Paper sx={{ width: "100%" }} className="dark:bg-slate-800 dark:text-white">
           <TableContainer sx={{
             maxWidth: "100%",
             maxHeight: "500px",
             overflowX: "auto",
             overflowY: "auto",
           }}>
-            <Table stickyHeader>
+            <Table stickyHeader className="dark:bg-slate-800 dark:text-white">
               <TableHead>
-                <TableRow>
-                  <TableCell>Sr. No</TableCell>
-                  <TableCell>Name</TableCell>
-                  <TableCell>About</TableCell>
-                  <TableCell>Address</TableCell>
-                  <TableCell>Action</TableCell>
+                <TableRow className="dark:bg-slate-800 dark:text-white">
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Sr. No</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Name</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">About</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Address</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Action</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
+              <TableBody className="dark:bg-slate-800 dark:text-white">
                 {loading && (
                   <TableRow>
                     <TableCell colSpan={10} align="center">
@@ -252,14 +252,14 @@ function CollegesTable() {
                 {!loading &&
                   collegeList?.map((item, index) => {
                     return (
-                      <TableRow key={index}>
-                        <TableCell>
+                      <TableRow key={index} className="dark:bg-slate-800 dark:text-white">
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           {page * rowsPerPage + (index + 1)}
                         </TableCell>
-                        <TableCell>{item.name}</TableCell>
-                        <TableCell>{item.about}</TableCell>
-                        <TableCell>{item.address}</TableCell>
-                        <TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">{item.name}</TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">{item.about}</TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">{item.address}</TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           <div className="flex flex-row gap-2">
                             <h2
                               className="text-blue-700 cursor-pointer"
@@ -291,6 +291,7 @@ function CollegesTable() {
             </Table>
           </TableContainer>
           <TablePagination
+          className="dark:bg-slate-800 dark:text-white"
             rowsPerPageOptions={[10, 25, 50, 100]}
             rowsPerPage={rowsPerPage}
             page={page}

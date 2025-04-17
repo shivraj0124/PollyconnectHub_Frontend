@@ -7,33 +7,41 @@ import Smsidebar from './Smsidebar'
 import Chatbot from '../Chat/ChatBot'
 
 function Home() {
-    const { sidebarvalue, userDetails } = themeHook
+    const { sidebarvalue, userDetails } = themeHook();
     const navigate = useNavigate();
+
     useEffect(() => {
         const userDetailsFromLocalStorage = JSON.parse(localStorage.getItem('userDetails'));
         console.log(userDetailsFromLocalStorage);
         if (!userDetailsFromLocalStorage) {
             navigate("/login")
         }
-    }, [userDetails])
+    }, [userDetails]);
 
     return (
-        <div className='bg-[#f5f5f5] w-full max-h-screen'>
+        <div className='w-full max-h-screen bg-[#f5f5f5] dark:bg-black dark:text-white'>
             <Navbar />
+            
+            {/* Mobile Sidebar */}
             <div className='min-[900px]:hidden'>
                 <Smsidebar />
             </div>
-            <div className=' grid grid-col-1 min-[900px]:grid-cols-[20%_auto]'>
-                <div className=' bg-white hidden min-[900px]:block'>
+
+            {/* Main Grid Layout */}
+            <div className='grid grid-col-1 min-[900px]:grid-cols-[20%_auto]'>
+                
+                {/* Sidebar for larger screens */}
+                <div className='bg-white dark:bg-gray-900 h-[91vh] hidden min-[900px]:block'>
                     <Sidebar />
                 </div>
-                <div >
+
+                {/* Outlet renders nested routes */}
+                <div className=' dark:bg-slate-900'>
                     <Outlet />
                 </div>
-                {/* <div className=' hidden min-[900px]:block'>
-                    <Outlet />
-                </div> */}
             </div>
+
+            {/* Chatbot fixed at bottom */}
             <div className='fixed bottom-5 right-5 z-50'>
                 <Chatbot />
             </div>

@@ -17,12 +17,12 @@ export default function Chatbot() {
   };
 
   useEffect(() => {
-    scrollToBottom(); // scroll when messages update
+    scrollToBottom();
   }, [messages]);
 
   useEffect(() => {
     if (isOpen) {
-      scrollToBottom(); // scroll when chatbot is opened
+      scrollToBottom();
     }
   }, [isOpen]);
 
@@ -34,7 +34,6 @@ export default function Chatbot() {
     setMessages(updatedMessages);
     setInput("");
 
-    // Show loader
     setMessages((prev) => [...prev, { sender: "bot", loading: true }]);
 
     try {
@@ -66,40 +65,44 @@ export default function Chatbot() {
     }
   };
 
-  // Loader component
   const Loader = () => (
     <div className="inline-block space-x-1">
-      <span className="inline-block w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0.1s]" />
-      <span className="inline-block w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0.2s]" />
-      <span className="inline-block w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0.3s]" />
+      <span className="inline-block w-2 h-2 bg-slate-400 dark:bg-slate-300 rounded-full animate-bounce [animation-delay:0.1s]" />
+      <span className="inline-block w-2 h-2 bg-slate-400 dark:bg-slate-300 rounded-full animate-bounce [animation-delay:0.2s]" />
+      <span className="inline-block w-2 h-2 bg-slate-400 dark:bg-slate-300 rounded-full animate-bounce [animation-delay:0.3s]" />
     </div>
   );
 
   return (
     <div className="fixed bottom-5 right-5 z-50">
-      <div onClick={toggleChatbot} className="bg-white p-2 rounded-full shadow-lg">
-        <button className="p-2 bg-green-500 text-white rounded-full shadow-lg relative transition transform hover:scale-110 hover:shadow-xl">
+      {/* Chat Toggle Button */}
+      <div onClick={toggleChatbot}>
+        <button className="p-3 bg-green-600 text-white rounded-full shadow-lg transition-transform hover:scale-110 hover:shadow-xl">
           <MessageCircle size={28} />
         </button>
       </div>
 
+      {/* Chatbot Panel */}
       {isOpen && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.3 }}
-          className="absolute bottom-16 right-0 w-80 bg-white shadow-2xl rounded-lg overflow-hidden"
+          className="absolute bottom-16 right-0 w-80 bg-white dark:bg-slate-800 shadow-2xl rounded-lg overflow-hidden"
         >
-          <div className="flex justify-between items-center bg-green-600 p-4 text-white">
+          {/* Header */}
+          <div className="flex justify-between items-center bg-green-600 text-white p-4">
             <h3 className="text-lg font-semibold">PolyConnectHub</h3>
             <button onClick={toggleChatbot}>
               <X size={20} />
             </button>
           </div>
-          <div className="p-4 h-64 overflow-y-auto">
+
+          {/* Messages */}
+          <div className="p-4 h-64 overflow-y-auto text-sm text-slate-800 dark:text-slate-200">
             {messages.length === 0 ? (
-              <p className="text-gray-500">Start the conversation...</p>
+              <p className="text-slate-500 dark:text-slate-400">Start the conversation...</p>
             ) : (
               messages.map((msg, index) => (
                 <div
@@ -107,10 +110,10 @@ export default function Chatbot() {
                   className={`mb-2 ${msg.sender === "user" ? "text-right" : "text-left"}`}
                 >
                   <span
-                    className={`inline-block px-3 py-2 rounded-lg ${
+                    className={`inline-block px-3 py-2 rounded-lg max-w-[75%] break-words ${
                       msg.sender === "user"
-                        ? "bg-green-500 text-white"
-                        : "bg-gray-200 text-black"
+                        ? "bg-green-600 text-white"
+                        : "bg-slate-200 dark:bg-slate-700 text-black dark:text-white"
                     }`}
                   >
                     {msg.loading ? <Loader /> : msg.text}
@@ -120,10 +123,12 @@ export default function Chatbot() {
             )}
             <div ref={messagesEndRef} />
           </div>
-          <div className="flex p-2 border-t">
+
+          {/* Input Section */}
+          <div className="flex p-2 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
             <input
               type="text"
-              className="flex-1 p-2 border rounded-l-lg focus:outline-none"
+              className="flex-1 p-2 rounded-l-lg bg-white dark:bg-slate-700 dark:text-white focus:outline-none"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type a message..."

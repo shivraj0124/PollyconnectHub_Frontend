@@ -273,16 +273,16 @@ function ProjectDetails() {
     <div className="flex flex-col w-full  h-[90vh] p-5">
       <div className="flex flex-row justify-between ">
         <div>
-          <h1 className="text-lg font-semibold ">Projects</h1>
+          <h1 className="text-lg font-semibold text-green-600">Projects</h1>
         </div>
         <div className="flex flex-row gap-2 items-center">
           <input
             type="text"
             placeholder="Search here"
-            className="h-max p-1 px-2 rounded-md focus:outline-none border-2 border-gray-200"
+            className="h-max p-1 px-2 rounded-md focus:outline-none border-2 border-gray-200 dark:bg-slate-800 dark:text-white"
             onChange={(e) => handleSearch(e.target.value)}
           />
-          <Button
+          {/* <Button
             variant="contained"
             style={{
               backgroundColor: "#327c1c",
@@ -291,7 +291,7 @@ function ProjectDetails() {
             onClick={() => setIsModelOpen(true)}
           >
             Add Project
-          </Button>
+          </Button> */}
         </div>
       </div>
       <div className=" mt-5 rounded">
@@ -307,22 +307,22 @@ function ProjectDetails() {
             <Table stickyHeader>
               <TableHead>
                 <TableRow>
-                  <TableCell>Sr. No</TableCell>
-                  <TableCell>Title</TableCell>
-                  <TableCell>Description</TableCell>
-                  <TableCell>Multimedia</TableCell>
-                  <TableCell>Created By</TableCell>
-                  <TableCell>Live Demo</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Sr. No</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Title</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Description</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Multimedia</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Created By</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Live Demo</TableCell>
                   {/* <TableCell>Like Count</TableCell> */}
-                  <TableCell>Status</TableCell>
-                  <TableCell>Type</TableCell>
-                  <TableCell>Action</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Status</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Type</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {loading && (
                   <TableRow>
-                    <TableCell colSpan={10} align="center">
+                    <TableCell className="dark:bg-slate-800 dark:text-white" colSpan={10} align="center">
                       <CircularProgress />{" "}
                     </TableCell>
                   </TableRow>
@@ -331,7 +331,7 @@ function ProjectDetails() {
                   <TableRow>
                     <TableCell
                       colSpan={9}
-                      className="capitalize"
+                      className="dark:bg-slate-800 dark:text-white capitalize"
                       align="center"
                     >
                       No Data available in table
@@ -342,11 +342,11 @@ function ProjectDetails() {
                   projectList?.map((item, index) => {
                     return (
                       <TableRow key={index}>
-                        <TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           {page * rowsPerPage + (index + 1)}
-                        </TableCell>
+                        </TableCell >
                         <TableCell
-                          className="cursor-pointer"
+                          className="cursor-pointer dark:bg-slate-800 dark:text-white"
                           onClick={() => {
                             setCurrentRow(item);
                             setIsModelOpen1(true);
@@ -355,7 +355,7 @@ function ProjectDetails() {
                           {" "}
                           {item.title}{" "}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           {" "}
                           {item.description.split(" ").slice(0, 5)}
                           <br />
@@ -370,7 +370,7 @@ function ProjectDetails() {
                             Read More...
                           </h1>
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           <a target="_blank" href={item?.multimedia}>
                             <img
                               className="w-[50px] h-[50px]"
@@ -378,7 +378,7 @@ function ProjectDetails() {
                             />{" "}
                           </a>
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           {" "}
                           <div>
                            
@@ -390,17 +390,17 @@ function ProjectDetails() {
                               </a>
                           </div>{" "}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           <Link
                             className="text-blue-400"
                             target="_blank"
                             to={item.live_demo}
                           >
-                            {item.live_demo}
+                            click here
                           </Link>
                         </TableCell>
                         {/* <TableCell>{item.likecount}</TableCell> */}
-                        <TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           <div onClick={toggleStatus}>
                             {item?.isActive === "true" ? (
                               <FaToggleOn
@@ -417,15 +417,15 @@ function ProjectDetails() {
                             )}
                           </div>
                         </TableCell>
-                        <TableCell>{item.type}</TableCell>
-                        <TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">{item.type}</TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           <div className="flex flex-row gap-2">
-                            <h2
+                            {/* <h2
                               className="text-blue-700 cursor-pointer"
                               onClick={() => handleEditProjectModal(item)}
                             >
                               Edit
-                            </h2>
+                            </h2> */}
                             <h2
                               className="text-red-500 cursor-pointer"
                               onClick={(e) =>
@@ -444,7 +444,7 @@ function ProjectDetails() {
               </TableBody>
             </Table>
           </TableContainer>
-          <TablePagination
+          <TablePagination className="dark:bg-slate-800 dark:text-white"
             rowsPerPageOptions={[10, 25, 50, 100]}
             rowsPerPage={rowsPerPage}
             page={page}
@@ -460,9 +460,9 @@ function ProjectDetails() {
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto  fixed inset-0 z-50 outline-none focus:outline-none  bg-opacity-10 backdrop-filter backdrop-blur-lg">
               <div className="relative  my-6 mx-auto w-[50%]">
                 {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none h-[500px] m-10 overflow-y-auto">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full dark:bg-slate-800 dark:text-white bg-white outline-none focus:outline-none h-[500px] m-10 overflow-y-auto">
                   {/*header*/}
-                  <div className="flex items-center justify-between p-3 border-b border-solid border-slate-200 rounded-t sticky top-0 bg-white">
+                  <div className="flex items-center justify-between p-3 border-b border-solid border-slate-200 rounded-t sticky top-0 bg-white dark:bg-slate-800 dark:text-white">
                     <h3 className="text-xl font-semibold text-[#757575]">
                       Project Details
                     </h3>
@@ -542,9 +542,9 @@ function ProjectDetails() {
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-gray-600 bg-opacity-60 backdrop-filter backdrop-blur-lg">
               <div className="relative  my-6 mx-auto w-[50%]">
                 {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none overflow-y-auto h-[500px] m-5">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full dark:bg-slate-800 dark:text-white bg-white outline-none focus:outline-none overflow-y-auto h-[500px] m-5">
                   {/*header*/}
-                  <div className="flex items-center justify-between p-3 border-b border-solid border-slate-200 rounded-t">
+                  <div className="flex items-center justify-between p-3 border-b border-solid dark:bg-slate-800 dark:text-white border-slate-200 rounded-t">
                     <h3 className="text-xl font-semibold text-darkgreen">
                       Add Project
                     </h3>
@@ -555,13 +555,13 @@ function ProjectDetails() {
                       <Close />
                     </button>
                   </div>
-                  <form onSubmit={handleAddProject}>
+                  <form onSubmit={handleAddProject} className="dark:bg-slate-800 dark:text-white">
                     <div className="p-4">
                       <div className="flex flex-col">
                         <label className="mt-2">Project Title</label>
                         <input
                           type="text"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border-2 dark:border dark:bg-slate-800 dark:text-white border-gray-300 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Enter Project Title"
                           onChange={(e) => setTitle(e.target.value)}
                           required
@@ -570,7 +570,7 @@ function ProjectDetails() {
                       <div className="flex flex-col">
                         <label className="mt-5">Project Type</label>
                         <select
-                          className="border-2 border-gray-300 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border-2 dark:border dark:bg-slate-800 dark:text-white border-gray-300 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           onChange={(event) => {
                             setSelectedType(event.target.value);
                           }}
@@ -593,7 +593,7 @@ function ProjectDetails() {
                       <div className="flex flex-col">
                         <label className="mt-5">PRoject Description</label>
                         <textarea
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border-2 dark:border dark:bg-slate-800 dark:text-white border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Enter Project Description"
                           onChange={(e) => setDescription(e.target.value)}
                           required
@@ -604,7 +604,7 @@ function ProjectDetails() {
                         <label className="mt-5">Multimedia</label>
                         <input
                           type="file"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border-2 dark:border dark:bg-slate-800 dark:text-white border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Drop Multimedia"
                           onChange={handleImageUpload}
                           required
@@ -614,7 +614,7 @@ function ProjectDetails() {
                         <label className="mt-5">Project Contributors</label>
                         <input
                           type="telephone"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border-2 dark:border dark:bg-slate-800 dark:text-white border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Ex. Mohan Rane, Satish Ratho"
                           onChange={(e) => setContributors(e.target.value)}
                           required
@@ -624,7 +624,7 @@ function ProjectDetails() {
                         <label className="mt-5">Project Live Demo</label>
                         <input
                           type="telephone"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border-2 dark:border dark:bg-slate-800 dark:text-white border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Drop Live Project Link"
                           onChange={(e) => setLiveDemo(e.target.value)}
                           required
