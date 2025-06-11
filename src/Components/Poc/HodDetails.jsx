@@ -232,7 +232,7 @@ function HodDetails() {
           <input
             type="text"
             placeholder="Search here"
-            className="h-max p-1 px-2 rounded-md focus:outline-none border-2 border-gray-200"
+            className="h-max p-1 px-2 rounded-md focus:outline-none border-2 border-gray-200 dark:bg-slate-800 dark:text-white"
             onChange={(e) => handleSearch(e.target.value)}
           />
           <Button
@@ -347,9 +347,9 @@ function HodDetails() {
         {isModelOpen && (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  bg-opacity-10 backdrop-filter backdrop-blur-lg">
-              <div className="relative  my-6 mx-auto w-[50%]">
+              <div className="relative  my-6 mx-auto w-[50%] rounded-xl dark:bg-slate-900 text-slate-900 dark:text-slate-100">
                 {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full  outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-center justify-between p-3 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-xl font-semibold text-[#757575]">
@@ -368,7 +368,7 @@ function HodDetails() {
                         <label className="mt-5">Email</label>
                         <input
                           type="email"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Enter Email"
                           onChange={(e) => setEmail(e.target.value)}
                           required
@@ -378,7 +378,7 @@ function HodDetails() {
                         <label className="mt-5">Mobile No.</label>
                         <input
                           type="telephone"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Enter Mobile No"
                           onChange={(e) => setMobileNO(e.target.value)}
                           required
@@ -387,7 +387,7 @@ function HodDetails() {
                       <div className="flex flex-col">
                         <label className="mt-5">department Name</label>
                         <select
-                          className="border-2 border-gray-300 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           onChange={(event) => {
                             setdepartment(event.target.value);
                           }}
@@ -442,9 +442,9 @@ function HodDetails() {
         {isModelOpen2 && (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  bg-opacity-10 backdrop-filter backdrop-blur-lg">
-              <div className="relative  my-6 mx-auto w-[50%]">
+              <div className="relative  my-6 mx-auto w-[50%] rounded-xl dark:bg-slate-900 text-slate-900 dark:text-slate-100">
                 {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-center justify-between p-3 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-xl font-semibold text-[#757575]">
@@ -502,9 +502,9 @@ function HodDetails() {
         {isModelOpen3 && (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  bg-opacity-10 backdrop-filter backdrop-blur-lg">
-              <div className="relative  my-6 mx-auto w-[50%]">
+              <div className="relative  my-6 mx-auto w-[50%] rounded-xl dark:bg-slate-900 text-slate-900 dark:text-slate-100">
                 {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-center justify-between p-3 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-xl font-semibold text-[#757575]">
@@ -523,7 +523,7 @@ function HodDetails() {
                         <label className="mt-5">Email</label>
                         <input
                           type="email"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Enter Email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
@@ -535,7 +535,7 @@ function HodDetails() {
                         <label className="mt-5">Mobile No.</label>
                         <input
                           type="telephone"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Enter Mobile No"
                           value={mobileNo}
                           onChange={(e) => setMobileNO(e.target.value)}

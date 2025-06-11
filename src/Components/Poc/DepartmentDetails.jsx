@@ -57,14 +57,11 @@ function DepartmentDetails() {
   const getAllDpt = async () => {
     setLoading(true);
     try {
-      const result = await axios.post(
-        `${VITE_BACKEND_API}/api/dpt/getAllDpt`,
-        {
-          page: page,
-          rows: rowsPerPage,
-          college: userDetails.College,
-        }
-      );
+      const result = await axios.post(`${VITE_BACKEND_API}/api/dpt/getAllDpt`, {
+        page: page,
+        rows: rowsPerPage,
+        college: userDetails.College,
+      });
       console.log(result.data.data);
       setDepartmentList(result.data.data.data);
       setDepartmentListCount(result.data.data.totalDepartments);
@@ -106,10 +103,11 @@ function DepartmentDetails() {
     setLoading(true);
     try {
       const response = await axios.post(
-        `${VITE_BACKEND_API}/api/poc/searchDepartment`, {
-        college: userDetails.College,
-        search: search
-      }
+        `${VITE_BACKEND_API}/api/poc/searchDepartment`,
+        {
+          college: userDetails.College,
+          search: search,
+        }
       );
       console.log(response.data);
       setDepartmentList(response.data.department);
@@ -216,7 +214,9 @@ function DepartmentDetails() {
     <div className="flex flex-col w-full  h-[90vh] p-5">
       <div className="flex flex-row justify-between w-[100%]">
         <div>
-          <h1 className="text-lg font-semibold text-green-600">Departments List</h1>
+          <h1 className="text-lg font-semibold text-green-600">
+            Departments List
+          </h1>
         </div>
         <div className="flex flex-row gap-2 items-center">
           <input
@@ -253,16 +253,28 @@ function DepartmentDetails() {
             <Table stickyHeader>
               <TableHead>
                 <TableRow>
-                  <TableCell className="dark:bg-slate-800 dark:text-white">Sr. No</TableCell>
-                  <TableCell className="dark:bg-slate-800 dark:text-white">Name</TableCell>
-                  <TableCell className="dark:bg-slate-800 dark:text-white">About</TableCell>
-                  <TableCell className="dark:bg-slate-800 dark:text-white">Action</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">
+                    Sr. No
+                  </TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">
+                    Name
+                  </TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">
+                    About
+                  </TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">
+                    Action
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {loading && (
                   <TableRow>
-                    <TableCell colSpan={10} align="center" className="dark:bg-slate-800 dark:text-white">
+                    <TableCell
+                      colSpan={10}
+                      align="center"
+                      className="dark:bg-slate-800 dark:text-white"
+                    >
                       <CircularProgress />{" "}
                     </TableCell>
                   </TableRow>
@@ -273,7 +285,6 @@ function DepartmentDetails() {
                       colSpan={9}
                       className="capitalize dark:bg-slate-800 dark:text-white"
                       align="center"
-                      
                     >
                       No Data available in table
                     </TableCell>
@@ -286,11 +297,15 @@ function DepartmentDetails() {
                       <TableRow key={index}>
                         <TableCell className="dark:bg-slate-800 dark:text-white">
                           {page * rowsPerPage + (index + 1)}
-                        </TableCell  >
-                        <TableCell  className="dark:bg-slate-800 dark:text-white">{item.name}</TableCell>
-                        <TableCell  className="dark:bg-slate-800 dark:text-white">{item.about}</TableCell>
+                        </TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
+                          {item.name}
+                        </TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
+                          {item.about}
+                        </TableCell>
                         {/* <TableCell>{item.college.name}</TableCell> */}
-                        <TableCell  className="dark:bg-slate-800 dark:text-white">
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
                           <div className="flex flex-row gap-2">
                             <h2
                               className="text-blue-700 cursor-pointer"
@@ -321,7 +336,7 @@ function DepartmentDetails() {
             </Table>
           </TableContainer>
           <TablePagination
-          className="dark:bg-slate-800 dark:text-white"
+            className="dark:bg-slate-800 dark:text-white"
             rowsPerPageOptions={[10, 25, 50, 100]}
             rowsPerPage={rowsPerPage}
             page={page}
@@ -334,9 +349,9 @@ function DepartmentDetails() {
         {isModelOpen && (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  bg-opacity-10 backdrop-filter backdrop-blur-lg">
-              <div className="relative  my-6 mx-auto w-[50%]">
+              <div className="relative  my-6 mx-auto w-[50%] dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl">
                 {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-center justify-between p-3 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-xl font-semibold text-[#757575]">
@@ -355,7 +370,7 @@ function DepartmentDetails() {
                         <label className="mt-5">Department Name</label>
                         <input
                           type="text"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Enter Department Name"
                           onChange={(e) => setName(e.target.value)}
                           required
@@ -365,7 +380,7 @@ function DepartmentDetails() {
                         <label className="mt-5">About</label>
                         <input
                           type="text"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Enter About Details"
                           onChange={(e) => setAbout(e.target.value)}
                           required
@@ -406,9 +421,9 @@ function DepartmentDetails() {
         {isModelOpen2 && (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  bg-opacity-10 backdrop-filter backdrop-blur-lg">
-              <div className="relative  my-6 mx-auto w-[50%]">
+              <div className="relative  my-6 mx-auto w-[50%] dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl">
                 {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-center justify-between p-3 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-xl font-semibold text-[#757575]">
@@ -466,9 +481,9 @@ function DepartmentDetails() {
         {isModelOpen3 && (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  bg-opacity-10 backdrop-filter backdrop-blur-lg">
-              <div className="relative  my-6 mx-auto w-[50%]">
+              <div className="relative  my-6 mx-auto w-[50%] dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl">
                 {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-center justify-between p-3 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-xl font-semibold text-[#757575]">
@@ -487,7 +502,7 @@ function DepartmentDetails() {
                         <label className="mt-5">Department Name</label>
                         <input
                           type="Name"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           value={Name}
                           onChange={(e) => setName(e.target.value)}
                           required
@@ -495,14 +510,14 @@ function DepartmentDetails() {
                       </div>
 
                       <div className="flex flex-col">
-                        <label className="mt-5">Mobile No.</label>
-                        <input
+                        <label className="mt-5">Description.</label>
+                        <textarea
                           type="text"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400 h-40"
                           value={About}
                           onChange={(e) => setAbout(e.target.value)}
                           required
-                        />
+                        ></textarea>
                       </div>
 
                       <div className="flex flex-col py-4 justify-between gap-3">

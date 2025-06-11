@@ -13,7 +13,7 @@ function PocHome() {
     }
   }, [userDetails]);
   return (
-    <div className="bg-[#f5f5f5] w-full max-h-screen">
+    <div className=" w-full max-h-screen">
       <Navbar />
       <div className=" grid grid-col-1 min-[900px]:grid-cols-[20%_auto]">
         <div className=" bg-white dark:bg-slate-950 hidden min-[900px]:block">

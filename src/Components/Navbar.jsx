@@ -79,7 +79,7 @@ function Navbar() {
             {theme === "light" ? (
               <MdOutlineDarkMode size={24} />
             ) : (
-              <MdOutlineLightMode size={24} />
+              <MdOutlineLightMode color="white" size={24} />
             )}
           </div>
 

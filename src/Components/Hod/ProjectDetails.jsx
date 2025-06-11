@@ -691,9 +691,9 @@ function ProjectDetails() {
         {isModelOpen2 && (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  bg-opacity-10 backdrop-filter backdrop-blur-lg">
-              <div className="relative  my-6 mx-auto w-[50%]">
+              <div className="relative  my-6 mx-auto w-[50%] rounded-xl dark:bg-slate-900 text-slate-900 dark:text-slate-100">
                 {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full  outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-center justify-between p-3 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-xl font-semibold text-[#757575]">

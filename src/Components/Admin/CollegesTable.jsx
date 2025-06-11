@@ -304,9 +304,9 @@ function CollegesTable() {
         {isModelOpen && (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  bg-opacity-10 backdrop-filter backdrop-blur-lg">
-              <div className="relative  my-6 mx-auto w-[50%]">
+              <div className="relative  my-6 mx-auto w-[50%] dark:bg-slate-900 text-slate-900 dark:text-slate-100">
                 {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full  outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-center justify-between p-3 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-xl font-semibold text-[#757575]">
@@ -325,7 +325,7 @@ function CollegesTable() {
                         <label className="mt-5">College Name</label>
                         <input
                           type="text"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Enter College Name"
                           onChange={(e) => setCollegeName(e.target.value)}
                           required
@@ -335,7 +335,7 @@ function CollegesTable() {
                         <label className="mt-5">About</label>
                         <input
                           type="telephone"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="About The College"
                           onChange={(e) => setAbout(e.target.value)}
                           required
@@ -345,7 +345,7 @@ function CollegesTable() {
                         <label className="mt-5">Address</label>
                         <input
                           type="telephone"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Enter College Address"
                           onChange={(e) => setAddress(e.target.value)}
                           required
@@ -386,9 +386,9 @@ function CollegesTable() {
         {isModelOpen2 && (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  bg-opacity-10 backdrop-filter backdrop-blur-lg">
-              <div className="relative  my-6 mx-auto w-[50%]">
+              <div className="relative  my-6 mx-auto w-[50%] dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl">
                 {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full  outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-center justify-between p-3 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-xl font-semibold text-[#757575]">
@@ -446,9 +446,9 @@ function CollegesTable() {
         {isModelOpen3 && (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  bg-opacity-10 backdrop-filter backdrop-blur-lg">
-              <div className="relative  my-6 mx-auto w-[50%]">
+              <div className="relative  my-6 mx-auto w-[50%] dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl">
                 {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-center justify-between p-3 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-xl font-semibold text-[#757575]">
@@ -467,7 +467,7 @@ function CollegesTable() {
                         <label className="mt-5">College Name</label>
                         <input
                           type="text"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Enter College Name"
                           value={collegeName}
                           onChange={(e) => setCollegeName(e.target.value)}
@@ -478,7 +478,7 @@ function CollegesTable() {
                         <label className="mt-5">About</label>
                         <input
                           type="telephone"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="About The College"
                           value={about}
                           onChange={(e) => setAbout(e.target.value)}
@@ -489,7 +489,7 @@ function CollegesTable() {
                         <label className="mt-5">Address</label>
                         <input
                           type="telephone"
-                          className="border-2 border-gray-300 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-md px-2 py-1  focus:outline-none placeholder:text-sm placeholder:text-gray-400"
                           placeholder="Enter College Address"
                           value={address}
                           onChange={(e) => setAddress(e.target.value)}
