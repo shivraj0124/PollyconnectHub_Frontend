@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { MessageCircle, X } from "lucide-react";
+import axios from "axios";
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const messagesEndRef = useRef(null);
-
+ const VITE_BACKEND_API = import.meta.env.VITE_BACKEND_API;
   const toggleChatbot = () => setIsOpen(!isOpen);
 
   const scrollToBottom = () => {
@@ -48,7 +49,12 @@ export default function Chatbot() {
         }),
       });
 
-      const data = await response.json();
+      // const response = await axios.post(`${VITE_BACKEND_API}/api/chat/process_data`{
+      //   messages: input,
+      //   history: messages.map((msg) => msg.text).join("\n")
+      // })
+
+      const data = await response?.json();
 
       setMessages((prev) => {
         const filtered = prev.filter((msg) => !msg.loading);
@@ -74,7 +80,7 @@ export default function Chatbot() {
   );
 
   return (
-    <div className="fixed bottom-5 right-5 z-50">
+    <div className="fixed bottom-5 right-5 max-md:right-2 max-md:bottom-2 z-50">
       {/* Chat Toggle Button */}
       <div onClick={toggleChatbot}>
         <button className="p-3 bg-green-600 text-white rounded-full shadow-lg transition-transform hover:scale-110 hover:shadow-xl">

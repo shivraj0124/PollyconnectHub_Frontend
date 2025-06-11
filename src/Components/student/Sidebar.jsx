@@ -53,13 +53,13 @@ function Sidebar({ data }) {
     }`;
 
   return (
-    <div className="flex flex-col  h-[90vh] w-full p-4 justify-between  dark:bg-slate-950">
+    <div className="flex flex-col  h-[93vh] w-full p-4 justify-between  dark:bg-slate-950">
       <ul className="flex flex-col max-md:flex-row w-full gap-2">
-        <Link to="/visit" className={linkClasses("Home")} onClick={handleItemClick}>
+        <Link to="/visit" className={linkClasses("My Home")} onClick={handleItemClick}>
           <div className="flex items-center">
             <BiHome size={22} />
           </div>
-          <div>Home</div>
+          <div>My Home</div>
         </Link>
 
         <Link to="/college" className={linkClasses("College")} onClick={handleItemClick}>

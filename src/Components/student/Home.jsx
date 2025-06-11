@@ -23,15 +23,15 @@ function Home() {
             <Navbar />
             
             {/* Mobile Sidebar */}
-            <div className='min-[900px]:hidden'>
+            <div className='min-[900px]:hidden dark:bg-slate-900'>
                 <Smsidebar />
             </div>
 
             {/* Main Grid Layout */}
-            <div className='grid grid-col-1 min-[900px]:grid-cols-[20%_auto]'>
+            <div className='grid grid-col-1 min-[900px]:grid-cols-[20%_auto] dark:bg-slate-900'>
                 
                 {/* Sidebar for larger screens */}
-                <div className='bg-white dark:bg-gray-900 h-[91vh] hidden min-[900px]:block'>
+                <div className='bg-white dark:bg-gray-900 h-[93vh]  hidden min-[900px]:block'>
                     <Sidebar />
                 </div>
 

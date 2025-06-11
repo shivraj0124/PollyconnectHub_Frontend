@@ -1,80 +1,167 @@
-import React from "react";
+import React, { useState } from "react";
 import themeHook from "./Context";
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaProjectDiagram } from "react-icons/fa";
+import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
+import { HiMenu, HiX } from "react-icons/hi";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { FaProjectDiagram } from "react-icons/fa";
-import { MdOutlineDarkMode } from "react-icons/md";
-import { MdOutlineLightMode } from "react-icons/md";
+import { useNavigate, Link, useLocation } from "react-router-dom";
+
 function Navbar() {
   const { userDetails, theme, setTheme } = themeHook();
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+
   const handleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-    localStorage.setItem("theme", theme === "light" ? "dark" : "light");
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
   };
+
+  const handleHashNavigation = (hash) => {
+    if (window.location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        scrollToSection(hash);
+      }, 100);
+    } else {
+      scrollToSection(hash);
+    }
+    setMenuOpen(false);
+  };
+
+  const scrollToSection = (hash) => {
+    const id = hash.replace("#", "");
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const navLinks = (
+    <div className="flex flex-col md:flex-row gap-4 items-center md:gap-6 text-lg font-medium">
+      <Link to="/" className="hover:text-green-500" onClick={() => setMenuOpen(false)}>
+        Home
+      </Link>
+      <button className="hover:text-green-500" onClick={() => handleHashNavigation("#features")}>
+        Features
+      </button>
+      <button className="hover:text-green-500" onClick={() => handleHashNavigation("#categories")}>
+        Categories
+      </button>
+      <button className="hover:text-green-500" onClick={() => handleHashNavigation("#contact")}>
+        Contact
+      </button>
+    </div>
+  );
+
   return (
-    <div className="flex flex-row dark:bg-slate-950 bg-white px-5 py-3 justify-between items-center dark:border-gray-500 border-b-2 border-gray-300 sticky top-0">
-      <div className="flex justify-center items-end text-green-800 ">
-        <FaProjectDiagram size={40} />
-        <h1 className="text-lg font-bold text-green-600 cursor-pointer">
-          <Link to={"/"}>
-            <i>PolyConnectHub</i>
-          </Link>
-        </h1>
-      </div>
-      <div className="flex gap-5 justify-center items-center">
-        <div
-          className="cursor-pointer dark:text-white text-black"
-          onClick={handleTheme}
-        >
-          {theme === "light" ? (
-            <MdOutlineDarkMode color="black" size={24} />
-          ) : (
-            <MdOutlineLightMode color="white" size={24} />
-          )}
+    <div className="relative">
+      <div className="flex justify-between items-center px-5 py-3 dark:bg-slate-950 bg-white border-b-2 border-gray-300 dark:border-gray-600 sticky top-0 z-50">
+        {/* Logo */}
+        <div className="flex items-center gap-2 text-green-800">
+          <FaProjectDiagram size={32} />
+          <h1 className="text-lg font-bold text-green-600 cursor-pointer">
+            <Link to="/">
+              <i>PolyConnectHub</i>
+            </Link>
+          </h1>
         </div>
-        {userDetails === null ? (
-          <div className="flex flex-row items-center gap-2">
+
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-6 text-slate-800 dark:text-white">
+          {navLinks}
+        </div>
+
+        {/* Theme Toggle + Auth + Hamburger */}
+        <div className="flex items-center gap-4">
+          {/* Theme Toggle */}
+          <div className="cursor-pointer" onClick={handleTheme}>
+            {theme === "light" ? (
+              <MdOutlineDarkMode size={24} />
+            ) : (
+              <MdOutlineLightMode size={24} />
+            )}
+          </div>
+
+          {/* Auth Section */}
+          {userDetails ? (
+            <div className="flex items-center gap-2 dark:text-white">
+              <h1 className="font-semibold hidden md:block">
+                <Link
+                  to={
+                    userDetails.userType === "admin"
+                      ? "/Admin/Dashboard"
+                      : userDetails.userType === "poc"
+                      ? "/Poc/Dashboard"
+                      : userDetails.userType === "HOD"
+                      ? "/Hod/Dashboard"
+                      : "/Profile"
+                  }
+                >
+                  {userDetails.username}
+                </Link>
+              </h1>
+              <FaUserCircle size={32} className="text-darkgreen" />
+            </div>
+          ) : (
             <Button
               variant="contained"
-              type="submit"
-              style={{
-                backgroundColor: "#22c55e",
-              }}
+              style={{ backgroundColor: "#22c55e" }}
               onClick={() => navigate("/Login")}
             >
               Login
             </Button>
-          </div>
-        ) : (
-          <div className="flex flex-row items-center gap-2 dark:text-white">
-            {userDetails?.userType === "admin" ? (
-              <h1 className=" font-semibold">
-                <Link to="/Admin/Dashboard">{userDetails?.username}</Link>
-              </h1>
-            ) : userDetails?.userType === "poc" ? (
-              <h1 className=" font-semibold">
-                <Link to="/Poc/Dashboard">{userDetails?.username}</Link>
-              </h1>
-            ) : userDetails?.userType === "HOD" ? (
-              <h1 className=" font-semibold">
-                <Link to="/Hod/Dashboard">{userDetails?.username}</Link>
-              </h1>
-            ) : (
-              <h1 className=" font-semibold">
-                <Link to="/Profile">{userDetails?.username}</Link>
-              </h1>
-            )}
+          )}
 
-            {/* <div className="text-white bg-gray-600 rounded-[50%] p-2 w-[40px] h-[40px] flex justify-center items-center">
-                    A
-                </div> */}
-            <FaUserCircle className=" text-darkgreen" size={40}></FaUserCircle>
-          </div>
-        )}
+          {/* Hamburger Button */}
+          <button
+            className="block md:hidden text-3xl dark:text-white"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? <HiX /> : <HiMenu />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="md:hidden absolute top-[65px] left-0 w-full bg-white dark:bg-slate-950 shadow-md px-5 py-4 z-40">
+          {navLinks}
+          <div className="mt-4 border-t border-gray-300 pt-4">
+            {userDetails ? (
+              <div className="flex items-center justify-between text-slate-800 dark:text-white">
+                <Link
+                  to={
+                    userDetails.userType === "admin"
+                      ? "/Admin/Dashboard"
+                      : userDetails.userType === "poc"
+                      ? "/Poc/Dashboard"
+                      : userDetails.userType === "HOD"
+                      ? "/Hod/Dashboard"
+                      : "/Profile"
+                  }
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {userDetails.username}
+                </Link>
+                <FaUserCircle size={28} />
+              </div>
+            ) : (
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#22c55e", marginTop: "10px" }}
+                onClick={() => {
+                  navigate("/Login");
+                  setMenuOpen(false);
+                }}
+                fullWidth
+              >
+                Login
+              </Button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

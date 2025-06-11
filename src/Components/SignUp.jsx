@@ -90,7 +90,7 @@ function SignUp() {
           <img className="h-max w-[500px]" src={signUpImage} />
         </div>
 
-        <div className="flex flex-col px-4 w-full sm:w-[60%] my-auto overflow-y-auto h-[85vh]">
+        <div className="flex flex-col justify-center items-center px-4 w-full sm:w-[60%] my-auto overflow-y-auto h-[85vh]">
           <h1 className="font-semibold text-xl underline underline-offset-4 text-center">
             Student Registration
           </h1>

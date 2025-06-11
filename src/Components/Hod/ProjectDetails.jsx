@@ -111,9 +111,9 @@ function ProjectDetails() {
           allocated_department: userDetails.allocated_department,
         }
       );
-      setProjectList(result.data.data.data);
+      setProjectList(result?.data?.data?.data);
       console.log(result.data.data.data);
-      setProjectCount(result.data.data.projectCount);
+      setProjectCount(result?.data?.data?.projectCount);
     } catch (err) {
       toast.error(err.message); // Use err.message to get the error message
     }
@@ -226,24 +226,23 @@ function ProjectDetails() {
     }
     setIsModelOpen3(false);
   };
-  const handleSearch = async (search) => {
-    console.log(search);
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        `${VITE_BACKEND_API}/api/hod/searchProject?search=${search}`,
-        {
-          allocated_department: userDetails.allocated_department,
-        }
-      );
-      setProjectList(response.data.projects);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching Projects:", error);
-      // setInterval(() => {
-      setLoading(false);
-      // }, 2000);
+
+  const handleSearch = (searchText) => {
+    if (!searchText.trim()){
+      setLoading(true)
+      getAllProjects()
     }
+
+    const lowerSearch = searchText.toLowerCase();
+    console.log(searchText);
+
+    setProjectList(
+      projectList.filter(
+        (project) =>
+          project?.title.toLowerCase().includes(lowerSearch) ||
+          project?.description.toLowerCase().includes(lowerSearch)
+      )
+    );
   };
 
   const handlestatus = async (id, s) => {
@@ -307,22 +306,44 @@ function ProjectDetails() {
             <Table stickyHeader>
               <TableHead>
                 <TableRow>
-                  <TableCell className="dark:bg-slate-800 dark:text-white">Sr. No</TableCell>
-                  <TableCell className="dark:bg-slate-800 dark:text-white">Title</TableCell>
-                  <TableCell className="dark:bg-slate-800 dark:text-white">Description</TableCell>
-                  <TableCell className="dark:bg-slate-800 dark:text-white">Multimedia</TableCell>
-                  <TableCell className="dark:bg-slate-800 dark:text-white">Created By</TableCell>
-                  <TableCell className="dark:bg-slate-800 dark:text-white">Live Demo</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">
+                    Sr. No
+                  </TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">
+                    Title
+                  </TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">
+                    Description
+                  </TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">
+                    Multimedia
+                  </TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">
+                    Created By
+                  </TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">
+                    Live Demo
+                  </TableCell>
                   {/* <TableCell>Like Count</TableCell> */}
-                  <TableCell className="dark:bg-slate-800 dark:text-white">Status</TableCell>
-                  <TableCell className="dark:bg-slate-800 dark:text-white">Type</TableCell>
-                  <TableCell className="dark:bg-slate-800 dark:text-white">Action</TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">
+                    Status
+                  </TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">
+                    Type
+                  </TableCell>
+                  <TableCell className="dark:bg-slate-800 dark:text-white">
+                    Action
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {loading && (
                   <TableRow>
-                    <TableCell className="dark:bg-slate-800 dark:text-white" colSpan={10} align="center">
+                    <TableCell
+                      className="dark:bg-slate-800 dark:text-white"
+                      colSpan={10}
+                      align="center"
+                    >
                       <CircularProgress />{" "}
                     </TableCell>
                   </TableRow>
@@ -344,7 +365,7 @@ function ProjectDetails() {
                       <TableRow key={index}>
                         <TableCell className="dark:bg-slate-800 dark:text-white">
                           {page * rowsPerPage + (index + 1)}
-                        </TableCell >
+                        </TableCell>
                         <TableCell
                           className="cursor-pointer dark:bg-slate-800 dark:text-white"
                           onClick={() => {
@@ -353,16 +374,16 @@ function ProjectDetails() {
                           }}
                         >
                           {" "}
-                          {item.title}{" "}
+                          {item?.title}{" "}
                         </TableCell>
                         <TableCell className="dark:bg-slate-800 dark:text-white">
                           {" "}
-                          {item.description.split(" ").slice(0, 5)}
+                          {item?.description?.split(" ").slice(0, 5)}
                           <br />
                           <h1
                             className="text-blue-500 cursor-pointer"
                             onClick={() => {
-                                (item?.description);
+                              item?.description;
                               setCurrentRow(item);
                               setIsModelOpen1(true);
                             }}
@@ -381,20 +402,19 @@ function ProjectDetails() {
                         <TableCell className="dark:bg-slate-800 dark:text-white">
                           {" "}
                           <div>
-                           
-                              <a
-                                href={`/profile/${item?.created_By?._id}`}
-                                className="text-blue-600"
-                              >
-                                @{item?.created_By?.username}
-                              </a>
+                            <a
+                              href={`/profile/${item?.created_By?._id}`}
+                              className="text-blue-600"
+                            >
+                              @{item?.created_By?.username}
+                            </a>
                           </div>{" "}
                         </TableCell>
                         <TableCell className="dark:bg-slate-800 dark:text-white">
                           <Link
                             className="text-blue-400"
                             target="_blank"
-                            to={item.live_demo}
+                            to={item?.live_demo}
                           >
                             click here
                           </Link>
@@ -404,20 +424,22 @@ function ProjectDetails() {
                           <div onClick={toggleStatus}>
                             {item?.isActive === "true" ? (
                               <FaToggleOn
-                                onClick={() => handlestatus(item._id, t)}
+                                onClick={() => handlestatus(item?._id, t)}
                                 size={23}
                                 color="green"
                               />
                             ) : (
                               <FaToggleOff
-                                onClick={() => handlestatus(item._id, f)}
+                                onClick={() => handlestatus(item?._id, f)}
                                 size={23}
                                 color="red"
                               />
                             )}
                           </div>
                         </TableCell>
-                        <TableCell className="dark:bg-slate-800 dark:text-white">{item.type}</TableCell>
+                        <TableCell className="dark:bg-slate-800 dark:text-white">
+                          {item?.type}
+                        </TableCell>
                         <TableCell className="dark:bg-slate-800 dark:text-white">
                           <div className="flex flex-row gap-2">
                             {/* <h2
@@ -429,7 +451,7 @@ function ProjectDetails() {
                             <h2
                               className="text-red-500 cursor-pointer"
                               onClick={(e) =>
-                                handleDeleteProjectModal(item._id, item.title)
+                                handleDeleteProjectModal(item?._id, item?.title)
                               }
                             >
                               Delete
@@ -444,7 +466,8 @@ function ProjectDetails() {
               </TableBody>
             </Table>
           </TableContainer>
-          <TablePagination className="dark:bg-slate-800 dark:text-white"
+          <TablePagination
+            className="dark:bg-slate-800 dark:text-white"
             rowsPerPageOptions={[10, 25, 50, 100]}
             rowsPerPage={rowsPerPage}
             page={page}
@@ -487,14 +510,13 @@ function ProjectDetails() {
                     <div className="flex flex-col mt-2">
                       <h1 className="font-bold">Created By: </h1>
                       <div>
-                           
-                           <a
-                             href={`/profile/${currentRow?.created_By?._id}`}
-                             className="text-blue-600"
-                           >
-                             @{currentRow?.created_By?.username}
-                           </a>
-                       </div>{" "}
+                        <a
+                          href={`/profile/${currentRow?.created_By?._id}`}
+                          className="text-blue-600"
+                        >
+                          @{currentRow?.created_By?.username}
+                        </a>
+                      </div>{" "}
                     </div>
                     <div className="flex flex-col mt-2">
                       <h1 className="font-bold">Type</h1>
@@ -509,15 +531,15 @@ function ProjectDetails() {
                       <h1 className="font-bold">Contributors</h1>
                       {/* <div> {currentRow?.contributers}</div> */}
                       {currentRow?.contributers?.map((item2, index) => (
-                              <a
-                                href={`/profile/${item2?._id}`}
-                                className="text-blue-600"
-                              >
-                                @{item2?.username}
-                              </a>
-                            ))}
+                        <a
+                          href={`/profile/${item2?._id}`}
+                          className="text-blue-600"
+                        >
+                          @{item2?.username}
+                        </a>
+                      ))}
                     </div>
-                   
+
                     <div className="flex flex-col mt-2">
                       <h1 className="font-bold">Live Demo</h1>
                       <div>
@@ -527,7 +549,7 @@ function ProjectDetails() {
                           target="_blank"
                           className="text-blue-500"
                         >
-                          {currentRow?.live_demo}
+                          {currentRow?.live_demo && <p>Click Here</p>}
                         </a>
                       </div>
                     </div>
@@ -555,7 +577,10 @@ function ProjectDetails() {
                       <Close />
                     </button>
                   </div>
-                  <form onSubmit={handleAddProject} className="dark:bg-slate-800 dark:text-white">
+                  <form
+                    onSubmit={handleAddProject}
+                    className="dark:bg-slate-800 dark:text-white"
+                  >
                     <div className="p-4">
                       <div className="flex flex-col">
                         <label className="mt-2">Project Title</label>
@@ -581,10 +606,10 @@ function ProjectDetails() {
                               return (
                                 <option
                                   key={index + 1}
-                                  id={item.id}
-                                  value={item.value}
+                                  id={item?.id}
+                                  value={item?.value}
                                 >
-                                  {item.value}
+                                  {item?.value}
                                 </option>
                               );
                             })}
@@ -688,7 +713,7 @@ function ProjectDetails() {
                         <h3>
                           Do you want to Delete{" "}
                           <span className="text-blue-400">
-                            {deleteProject.name}
+                            {deleteProject?.name}
                           </span>{" "}
                           project's records ?
                         </h3>
@@ -769,10 +794,10 @@ function ProjectDetails() {
                               return (
                                 <option
                                   key={index + 1}
-                                  id={item.id}
-                                  value={item.value}
+                                  id={item?.id}
+                                  value={item?.value}
                                 >
-                                  {item.value}
+                                  {item?.value}
                                 </option>
                               );
                             })}
@@ -821,9 +846,9 @@ function ProjectDetails() {
                             placeholder="Drop Multimedia"
                             onChange={handleImageUpload}
                           />
-                          <a href={editProject.multimedia} target="_blank">
+                          <a href={editProject?.multimedia} target="_blank">
                             <img
-                              src={editProject.multimedia}
+                              src={editProject?.multimedia}
                               className="w-[80px] h-[80px] rounded-md"
                             />
                           </a>

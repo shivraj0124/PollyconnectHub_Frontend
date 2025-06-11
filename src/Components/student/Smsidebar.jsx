@@ -19,7 +19,7 @@ function Smsidebar() {
     <div className="flex flex-row w-full overflow-x-auto justify-between bg-white dark:bg-[#121212] text-black dark:text-white dark:border-none border-t border-gray-300  py-2 px-1">
       <ul className="flex flex-row w-full gap-2">
         <Link
-          to={"/home"}
+          to={"/visit"}
           className={`${
             sidebarvalue === "Home"
               ? "bg-gray-200 dark:bg-gray-700 text-green-600"

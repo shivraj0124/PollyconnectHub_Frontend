@@ -19,13 +19,13 @@ function HodDashboard() {
       const result = await axios.post(
         `${VITE_BACKEND_API}/api/hod/hodDashboardDetails`,
         {
-          department_id: userDetails.allocated_department,
-          college_id: userDetails.allocated_college,
-          hod_id: userDetails._id,
+          department_id: userDetails?.allocated_department,
+          college_id: userDetails?.allocated_college,
+          hod_id: userDetails?._id,
         }
       );
       console.log(result.data);
-      setData(result.data);
+      setData(result?.data);
     } catch (err) {
       toast.error(err.message); // Use err.message to get the error message
     }
@@ -98,10 +98,10 @@ function HodDashboard() {
               {data?.hodData[0]?.username}
             </h1>
             <h2 className="font-semibold text-xl mt-4"><span className="text-xl text-green-600 font-semibold">College : </span>
-              {data?.hodData[0]?.allocated_college.name}
+              {data?.hodData[0]?.allocated_college?.name}
             </h2>
             <h2 className="font-bold"><span className="text-xl text-green-600 font-semibold">Department : </span>
-              {data?.hodData[0]?.allocated_department.name}
+              {data?.hodData[0]?.allocated_department?.name}
             </h2>
             <h2 className="mt-3"><span className=" text-green-600 font-semibold">Mobile No : </span>{data?.hodData[0]?.mobileNo}</h2>
             <h2><span className=" text-green-600 font-semibold">Email : </span>{data?.hodData[0]?.email}</h2>

@@ -60,7 +60,7 @@ function Profile() {
   return (
     <div className="md:h-[90vh] bg-gray-100 dark:bg-slate-900 text-gray-800 dark:text-slate-100 relative">
       <img className="h-32 w-full object-cover" src={photo} />
-      <div className="grid grid-cols-1 md:grid-cols-[35%_1fr] gap-4 p-4 absolute top-20 w-full md:h-[85%]">
+      <div className="grid grid-cols-1 md:grid-cols-[35%_1fr] gap-4 p-4 absolute top-20 w-full md:h-[85%] dark:bg-slate-900">
         {/* Left Profile Info Card */}
         <div className="bg-white dark:bg-slate-800 rounded-lg p-4 flex flex-col gap-4 items-center shadow-md">
           <FaRegCircleUser size={55} className="text-green-700 dark:text-green-400" />
