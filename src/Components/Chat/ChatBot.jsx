@@ -27,45 +27,56 @@ export default function Chatbot() {
     }
   }, [isOpen]);
 
-  const sendMessage = async () => {
-    if (input.trim() === "") return;
+ const sendMessage = async () => {
+  if (input.trim() === "") return;
 
-    const userMessage = { text: input, sender: "user" };
-    const updatedMessages = [...messages, userMessage];
-    setMessages(updatedMessages);
-    setInput("");
+  const userMessage = { text: input, sender: "user" };
+  const updatedMessages = [...messages, userMessage];
+  setMessages(updatedMessages);
+  setInput("");
 
-    setMessages((prev) => [...prev, { sender: "bot", loading: true }]);
+  setMessages((prev) => [...prev, { sender: "bot", loading: true }]);
 
-    try {
-      const response = await fetch(`${VITE_CHATBOT_BACKEND}/process_data`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          messages: input,
-          history: messages.map((msg) => msg.text).join("\n"),
-        }),
-      });
+  try {
+    const response = await fetch(`${VITE_CHATBOT_BACKEND}/process_data`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        messages: input,
+        history: messages.map((msg) => msg.text).join("\n"),
+      }),
+    });
 
+    let botReply = "";
 
-      const data = await response?.json();
-
-      setMessages((prev) => {
-        const filtered = prev.filter((msg) => !msg.loading);
-        return [...filtered, { text: data, sender: "bot" }];
-      });
-    } catch (error) {
-      setMessages((prev) => {
-        const filtered = prev.filter((msg) => !msg.loading);
-        return [
-          ...filtered,
-          { text: "Error: " + error.message, sender: "bot" },
-        ];
-      });
+    if (response.ok) {
+      try {
+        const data = await response.json();
+        botReply = data || "I didn't get a proper response, but I'm here!";
+      } catch {
+        botReply = "Sorry, something went wrong while understanding the response.";
+      }
+    } else {
+      botReply = "Oops! The server is not responding properly. Try again later.";
     }
-  };
+
+    setMessages((prev) => {
+      const filtered = prev.filter((msg) => !msg.loading);
+      return [...filtered, { text: botReply, sender: "bot" }];
+    });
+  } catch {
+    setMessages((prev) => {
+      const filtered = prev.filter((msg) => !msg.loading);
+      return [
+        ...filtered,
+        { text: "⚠️ Our server is currently unreachable. Please try again shortly.", sender: "bot" },
+      ];
+    });
+  }
+};
+
 
   const Loader = () => (
     <div className="inline-block space-x-1">
