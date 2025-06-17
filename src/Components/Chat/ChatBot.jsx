@@ -49,10 +49,6 @@ export default function Chatbot() {
         }),
       });
 
-      // const response = await axios.post(`${VITE_BACKEND_API}/api/chat/process_data`{
-      //   messages: input,
-      //   history: messages.map((msg) => msg.text).join("\n")
-      // })
 
       const data = await response?.json();
 
