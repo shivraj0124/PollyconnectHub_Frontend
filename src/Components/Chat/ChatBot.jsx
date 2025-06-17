@@ -8,7 +8,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const messagesEndRef = useRef(null);
- const VITE_BACKEND_API = import.meta.env.VITE_BACKEND_API;
+ const VITE_CHATBOT_BACKEND = import.meta.env.VITE_CHATBOT_BACKEND;
   const toggleChatbot = () => setIsOpen(!isOpen);
 
   const scrollToBottom = () => {
@@ -38,7 +38,7 @@ export default function Chatbot() {
     setMessages((prev) => [...prev, { sender: "bot", loading: true }]);
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/process_data", {
+      const response = await fetch(`${VITE_CHATBOT_BACKEND}/process_data`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
