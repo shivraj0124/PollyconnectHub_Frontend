@@ -333,7 +333,7 @@ function MyHome() {
             {/* Theme toggle */}
             <button
               onClick={handleTheme}
-              className={`w-9 h-9 rounded-xl border flex items-center justify-center transition-all duration-200
+              className={`w-9 h-9  rounded-xl border flex items-center justify-center transition-all duration-200
                 ${
                   theme === "dark"
                     ? "bg-white/[0.05] border-white/10 text-slate-300 hover:bg-white/10"
@@ -703,7 +703,7 @@ function MyHome() {
     </div>
 
     {/* Links */}
-    <div className="flex flex-wrap max-sm:flex-col justify-center md:justify-center items-center gap-4 sm:gap-6 max-w-full">
+    <div className="flex flex-wrap justify-center md:justify-center items-center gap-4 sm:gap-6 max-w-full">
       {navLinks.map((l) => (
         <a
           key={l}
