@@ -1,31 +1,30 @@
 import React from "react";
-import { BiHome } from "react-icons/bi";
+import { BiHome, BiUserCircle } from "react-icons/bi";
 import { IoSchoolOutline } from "react-icons/io5";
-import { BiUserCircle } from "react-icons/bi";
 import { GoProjectSymlink } from "react-icons/go";
+import { Link, useLocation } from "react-router-dom";
 import themeHook from "../Context";
-import { Link } from "react-router-dom";
 
 function Smsidebar() {
-  const { sidebarvalue, setsidebarvalue, userDetails } = themeHook();
+  const { userDetails, theme } = themeHook();
+  const location = useLocation();
 
-  const handleItemClick = (e) => {
-    const value = e.target.textContent.trim();
-    setsidebarvalue(value);
-    console.log("state", sidebarvalue);
-  };
+  // Helper to check active route
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="flex flex-row w-full overflow-x-auto justify-between bg-white dark:bg-[#121212] text-black dark:text-white dark:border-none border-t border-gray-300  py-2 px-1">
+    <div className="flex flex-row max-sm:text-sm w-full overflow-x-auto justify-between bg-white dark:bg-[#121212] text-black dark:text-white dark:border-none border-t border-gray-300 py-2 px-1">
+      
       <ul className="flex flex-row w-full gap-2">
+
+        {/* Home */}
         <Link
-          to={"/visit"}
+          to="/visit"
           className={`${
-            sidebarvalue === "Home"
+            isActive("/visit")
               ? "bg-gray-200 dark:bg-gray-700 text-green-600"
               : ""
           } hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer grid grid-cols-[auto_1fr] gap-2 px-4 py-2 font-semibold rounded-lg`}
-          onClick={handleItemClick}
         >
           <div className="flex items-center">
             <BiHome size={22} />
@@ -33,14 +32,14 @@ function Smsidebar() {
           <div>Home</div>
         </Link>
 
+        {/* College */}
         <Link
-          to={"/college"}
+          to="/college"
           className={`${
-            sidebarvalue === "College"
+            isActive("/college")
               ? "bg-gray-200 dark:bg-gray-700 text-green-600"
               : ""
           } hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer grid grid-cols-[auto_1fr] gap-2 px-4 py-2 font-semibold rounded-lg`}
-          onClick={handleItemClick}
         >
           <div className="flex items-center">
             <IoSchoolOutline size={22} />
@@ -48,15 +47,15 @@ function Smsidebar() {
           <div>College</div>
         </Link>
 
+        {/* Student Projects */}
         {userDetails?.userType === "student" && (
           <Link
-            to={"/StudentProjects"}
+            to="/StudentProjects"
             className={`${
-              sidebarvalue === "Students Projects"
+              isActive("/StudentProjects")
                 ? "bg-gray-200 dark:bg-gray-700 text-green-600"
                 : ""
             } hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer grid grid-cols-[auto_1fr] gap-2 px-4 py-2 font-semibold rounded-lg`}
-            onClick={handleItemClick}
           >
             <div className="flex items-center">
               <GoProjectSymlink size={22} />
@@ -65,15 +64,15 @@ function Smsidebar() {
           </Link>
         )}
 
+        {/* Profile */}
         {userDetails?.userType === "student" && (
           <Link
-            to={"/profile"}
+            to="/profile"
             className={`${
-              sidebarvalue === "Profile"
+              isActive("/profile")
                 ? "bg-gray-200 dark:bg-gray-700 text-green-600"
                 : ""
             } hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer grid grid-cols-[auto_1fr] gap-2 px-4 py-2 font-semibold rounded-lg`}
-            onClick={handleItemClick}
           >
             <div className="flex items-center">
               <BiUserCircle size={22} />
@@ -81,6 +80,7 @@ function Smsidebar() {
             <div>Profile</div>
           </Link>
         )}
+
       </ul>
     </div>
   );

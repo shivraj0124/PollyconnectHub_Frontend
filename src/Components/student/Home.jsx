@@ -23,7 +23,7 @@ function Home() {
             <Navbar />
             
             {/* Mobile Sidebar */}
-            <div className='min-[900px]:hidden dark:bg-slate-900'>
+            <div className='min-[900px]:hidden w-[100%] dark:bg-slate-900'>
                 <Smsidebar />
             </div>
 

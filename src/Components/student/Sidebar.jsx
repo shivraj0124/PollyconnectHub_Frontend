@@ -3,10 +3,12 @@ import { FaUserCircle } from "react-icons/fa";
 import { BiHome, BiUserCircle } from "react-icons/bi";
 import { IoSchoolOutline } from "react-icons/io5";
 import { GoProjectSymlink } from "react-icons/go";
+import { HiArrowRightOnRectangle } from "react-icons/hi2";
 import themeHook from "../Context";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
+import { TbHexagonLetterP } from "react-icons/tb";
 
 function Sidebar({ data }) {
   const {
@@ -18,13 +20,14 @@ function Sidebar({ data }) {
     setUserDetails,
     loadingMain,
     setLoadingMain,
+    theme,
   } = themeHook();
 
   const navigate = useNavigate();
 
   const handleItemClick = (e) => {
-    const value = e.target.textContent.trim();
-    setsidebarvalue(value);
+    const value = e.currentTarget.querySelector(".nav-label")?.textContent.trim();
+    if (value) setsidebarvalue(value);
   };
 
   const handleLogOut = async () => {
@@ -45,76 +48,162 @@ function Sidebar({ data }) {
     setLoadingMain(false);
   };
 
-  const linkClasses = (label) =>
-    `hover:bg-green-100 dark:hover:bg-green-800 cursor-pointer grid grid-cols-[auto_1fr] gap-4 px-4 py-2 font-semibold rounded-lg transition-colors duration-200 ${
-      sidebarvalue === label
-        ? "bg-green-200 text-green-900 dark:bg-green-700 dark:text-white"
-        : "text-black dark:text-white"
-    }`;
+  const navItems = [
+    { label: "My Home", to: "/visit",           icon: BiHome,          show: true },
+    { label: "College",  to: "/college",          icon: IoSchoolOutline, show: true },
+    { label: "Projects", to: "/StudentProjects",  icon: GoProjectSymlink,show: userDetails?.userType === "student" },
+    { label: "Profile",  to: "/profile",           icon: BiUserCircle,   show: userDetails?.userType === "student" },
+  ];
+
+  const isActive = (label) => sidebarvalue === label;
 
   return (
-    <div className="flex flex-col  h-[93vh] w-full p-4 justify-between  dark:bg-slate-950">
-      <ul className="flex flex-col max-md:flex-row w-full gap-2">
-        <Link to="/visit" className={linkClasses("My Home")} onClick={handleItemClick}>
-          <div className="flex items-center">
-            <BiHome size={22} />
-          </div>
-          <div>My Home</div>
-        </Link>
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap');
+        .sidebar-root { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .syne { font-family: 'Syne', 'Plus Jakarta Sans', sans-serif; }
+        .nav-glow { box-shadow: 0 0 18px rgba(34,197,94,0.25); }
+        .logout-btn:hover { box-shadow: 0 0 14px rgba(239,68,68,0.3); }
+      `}</style>
 
-        <Link to="/college" className={linkClasses("College")} onClick={handleItemClick}>
-          <div className="flex items-center">
-            <IoSchoolOutline size={22} />
-          </div>
-          <div>College</div>
-        </Link>
-
-        {userDetails?.userType === "student" && (
-          <Link
-            to="/StudentProjects"
-            className={linkClasses("Projects")}
-            onClick={handleItemClick}
+      <div
+        className={`sidebar-root flex flex-col h-[93vh] max-sm:hidden w-full justify-between transition-colors border-r   duration-300
+          ${theme === "dark" ? "bg-[#060d09] border-white/[0.07]" : "bg-[#f5faf6] border-slate-200"}`}
+      >
+        {/* ── Logo strip ── */}
+        <div>
+          {/* <div
+            className={`flex items-center gap-2.5 px-5 py-5 border-b
+              ${theme === "dark" ? "border-white/[0.07]" : "border-slate-200"}`}
           >
-            <div className="flex items-center">
-              <GoProjectSymlink size={22} />
+            <div className="w-8 h-8 rounded-xl bg-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-900/30 flex-shrink-0">
+              <TbHexagonLetterP size={18} className="text-white" />
             </div>
-            <div>Projects</div>
-          </Link>
-        )}
+            <span className="syne text-base tracking-tight max-md:hidden">
+              <span className={theme === "dark" ? "text-white" : "text-slate-900"}>Poly</span>
+              <span className="text-emerald-500">Connect</span>
+              <span className={theme === "dark" ? "text-white" : "text-slate-900"}>Hub</span>
+            </span>
+          </div> */}
 
-        {userDetails?.userType === "student" && (
-          <Link to="/profile" className={linkClasses("Profile")} onClick={handleItemClick}>
-            <div className="flex items-center">
-              <BiUserCircle size={22} />
-            </div>
-            <div>Profile</div>
-          </Link>
-        )}
-      </ul>
+          {/* ── Nav label ── */}
+          <p
+            className={`px-5 pt-5 pb-2 text-[10px] font-bold uppercase tracking-widest max-md:hidden
+              ${theme === "dark" ? "text-slate-600" : "text-slate-400"}`}
+          >
+            Navigation
+          </p>
 
-      {userDetails && (
-        <div className="flex flex-col gap-1 bg-green-100 dark:bg-slate-800 rounded-lg p-3 mb-10">
-          <section className="flex gap-2 justify-center items-center">
-            <FaUserCircle className="text-green-700 dark:text-green-300" size={40} />
-            <section>
-              <p
-                className="font-semibold text-lg cursor-pointer text-green-900 dark:text-white"
-                onClick={() => navigate("/Profile")}
+          {/* ── Nav items ── */}
+          <ul className="flex flex-col max-md:flex-row gap-1 px-3 max-md:px-2 max-md:py-2">
+            {navItems.filter((n) => n.show).map(({ label, to, icon: Icon }) => (
+              <Link
+                key={label}
+                to={to}
+                onClick={handleItemClick}
+                className={`group relative flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 overflow-hidden
+                  ${isActive(label)
+                    ? theme === "dark"
+                      ? "bg-emerald-600/20 text-emerald-400 nav-glow"
+                      : "bg-emerald-100 text-emerald-800"
+                    : theme === "dark"
+                    ? "text-slate-400 hover:bg-white/[0.05] hover:text-white"
+                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                  }`}
               >
-                {userDetails?.username}
-              </p>
-            </section>
-          </section>
-          <p className="text-center text-xs text-green-700 dark:text-gray-400">{userDetails.email}</p>
-          <button
-            onClick={handleLogOut}
-            className="bg-green-200 dark:bg-green-900 text-green-800 dark:text-green-300 w-full px-4 py-[5px] font-semibold rounded-full"
-          >
-            Logout
-          </button>
+                {/* Active left bar */}
+                {isActive(label) && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-emerald-500" />
+                )}
+
+                {/* Icon container */}
+                <span
+                  className={`flex items-center justify-center w-8 h-8 rounded-lg flex-shrink-0 transition-all duration-200
+                    ${isActive(label)
+                      ? theme === "dark"
+                        ? "bg-emerald-500/25 text-emerald-400"
+                        : "bg-emerald-200 text-emerald-700"
+                      : theme === "dark"
+                      ? "bg-white/[0.06] text-slate-400 group-hover:bg-white/10 group-hover:text-white"
+                      : "bg-slate-200/70 text-slate-500 group-hover:bg-emerald-100 group-hover:text-emerald-700"
+                    }`}
+                >
+                  <Icon size={17} />
+                </span>
+
+                <span className="nav-label max-md:hidden">{label}</span>
+              </Link>
+            ))}
+          </ul>
         </div>
-      )}
-    </div>
+
+        {/* ── User card ── */}
+        {userDetails && (
+          <div className="px-3 pb-5">
+            <div
+              className={`rounded-2xl p-4 border transition-colors duration-300
+                ${theme === "dark"
+                  ? "bg-white/[0.03] border-white/[0.07]"
+                  : "bg-white border-slate-200 shadow-sm"}`}
+            >
+              {/* Avatar + info */}
+              <div className="flex items-center gap-3 mb-3">
+                <div className="relative flex-shrink-0">
+                  <FaUserCircle
+                    size={38}
+                    className={theme === "dark" ? "text-emerald-500" : "text-emerald-600"}
+                  />
+                  {/* Online dot */}
+                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white dark:border-[#060d09]" />
+                </div>
+
+                <div className="min-w-0 flex-1">
+                  <p
+                    className={`font-bold text-sm leading-tight truncate cursor-pointer hover:text-emerald-500 transition-colors
+                      ${theme === "dark" ? "text-white" : "text-slate-900"}`}
+                    onClick={() => navigate("/Profile")}
+                  >
+                    {userDetails?.username}
+                  </p>
+                  <p
+                    className={`text-[11px] truncate mt-0.5 ${
+                      theme === "dark" ? "text-slate-500" : "text-slate-400"
+                    }`}
+                  >
+                    {userDetails?.email}
+                  </p>
+                </div>
+              </div>
+
+              {/* Role badge */}
+              <div className="mb-3">
+                <span
+                  className={`inline-flex items-center text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full
+                    ${theme === "dark"
+                      ? "bg-emerald-900/40 text-emerald-400 border border-emerald-700/40"
+                      : "bg-emerald-100 text-emerald-700 border border-emerald-200"}`}
+                >
+                  {userDetails?.userType || "Member"}
+                </span>
+              </div>
+
+              {/* Logout */}
+              <button
+                onClick={handleLogOut}
+                className={`logout-btn group w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold border transition-all duration-200
+                  ${theme === "dark"
+                    ? "bg-red-900/20 border-red-800/40 text-red-400 hover:bg-red-900/30 hover:border-red-700/60"
+                    : "bg-red-50 border-red-200 text-red-600 hover:bg-red-100 hover:border-red-300"}`}
+              >
+                <HiArrowRightOnRectangle size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                Logout
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 
